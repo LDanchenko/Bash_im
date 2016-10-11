@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:id="@+id/grp1" android:checkableBehavior="single">
+        <item
+            android:id="@+id/drawer_expenses"
+            android:title="@string/nav_drawer_histories"
+            android:checked="true"/>
+        <item
+            android:id="@+id/drawer_categories"
+            android:title="@string/nav_drawer_favorite"/>
+        </group>
+    <group android:id="@+id/grp2" android:checkableBehavior="single">
+        <item
+            android:id="@+id/drawer_settings"
+            android:title="@string/nav_drawer_settings"/>
+
+        <item
+            android:id="@+id/drawer_statistics"
+            android:title="@string/nav_drawer_exit"/>
+    </group>
+</menu>
