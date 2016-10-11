@@ -14,7 +14,6 @@ import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
-import static android.R.id.toggle;
 
 @EActivity(R.layout.activity_main)
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -55,6 +54,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             setTitle(getString(R.string.app_name));
         }
 
+    //кнопка назад
     @Override
     public void onBackPressed() {
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
@@ -64,6 +64,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
+    //клик по навигатору
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         if (drawerLayout != null) {
