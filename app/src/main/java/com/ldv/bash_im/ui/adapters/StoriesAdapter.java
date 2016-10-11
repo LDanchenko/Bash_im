@@ -7,15 +7,15 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.ldv.bash_im.R;
-import com.ldv.bash_im.ui.entities.StoriesModel;
+import com.ldv.bash_im.ui.entities.StoriesEntity;
 
 import java.util.List;
 
 public class StoriesAdapter extends RecyclerView.Adapter<StoriesAdapter.StoriesHolder> { //передали класс что нижечерез адаптер
 
-    private List<StoriesModel> storiesList; //создали экземпляр списка
+    private List<StoriesEntity> storiesList; //создали экземпляр списка
 
-    public StoriesAdapter(List<StoriesModel> storiesList) {//конструктор
+    public StoriesAdapter(List<StoriesEntity> storiesList) {//конструктор
         this.storiesList = storiesList;
     }
 
@@ -28,7 +28,7 @@ public class StoriesAdapter extends RecyclerView.Adapter<StoriesAdapter.StoriesH
 
     @Override
     public void onBindViewHolder(StoriesHolder holder, int position) {
-        StoriesModel stories = storiesList.get(position); //применили метод гет, получили данные из таблицы с такой то позиции
+        StoriesEntity stories = storiesList.get(position); //применили метод гет, получили данные из таблицы с такой то позиции
         holder.stories_name.setText(stories.getName());
     }
 

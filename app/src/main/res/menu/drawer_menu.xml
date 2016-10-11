@@ -6,7 +6,7 @@
             android:title="@string/nav_drawer_stories"
             android:checked="true"/>
         <item
-            android:id="@+id/drawer_favourite"
+            android:id="@+id/drawer_favorite"
             android:title="@string/nav_drawer_favourite"/>
         </group>
     <group android:id="@+id/grp2" android:checkableBehavior="single">

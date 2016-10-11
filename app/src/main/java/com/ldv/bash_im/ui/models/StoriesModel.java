@@ -1,12 +1,12 @@
-package com.ldv.bash_im.ui.entities;
+package com.ldv.bash_im.ui.models;
 
 
-public class FavouriteModel{
+public class StoriesModel{
 
 
     public String name;
 
-    public  FavouriteModel(String name){
+    public  StoriesModel(String name){
         this.name= name;
     }
 

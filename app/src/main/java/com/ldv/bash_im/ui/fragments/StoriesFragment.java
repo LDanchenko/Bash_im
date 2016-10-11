@@ -2,8 +2,6 @@ package com.ldv.bash_im.ui.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.AsyncTaskLoader;
@@ -14,14 +12,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.ldv.bash_im.R;
 import com.ldv.bash_im.ui.adapters.StoriesAdapter;
-import com.ldv.bash_im.ui.entities.StoriesModel;
+import com.ldv.bash_im.ui.entities.StoriesEntity;
+import com.ldv.bash_im.ui.models.StoriesModel;
 
-import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.EFragment;
-import org.androidannotations.annotations.ViewById;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,26 +38,50 @@ public class StoriesFragment extends Fragment {
 
         recyclerView = (RecyclerView) rootView.findViewById(R.id.list_of_stories);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
        // getLoaderManager().restartLoader(1, null, this);
-        StoriesAdapter storiesAdapter = new StoriesAdapter(getStories());
-        recyclerView.setAdapter(storiesAdapter);
+     //StoriesAdapter storiesAdapter = new StoriesAdapter(g);
+       //recyclerView.setAdapter(storiesAdapter);
         return rootView;
     }
 
 
     public void onResume() {
         super.onResume();
-        Log.d(LOG_TAG, "onn resume, load stories");
+          loadCategories();
     }
 
 
-    private List<StoriesModel> getStories(){
-        List<StoriesModel> stories = new ArrayList<>();
-        stories.add(new StoriesModel("Look"));
 
 
-        return stories;
+
+
+    public void loadCategories (){
+        getLoaderManager().restartLoader(0, null, new LoaderManager.LoaderCallbacks<List<StoriesEntity>>() {
+            @Override
+            public Loader<List<StoriesEntity>> onCreateLoader(int id, Bundle args) {
+                final AsyncTaskLoader<List<StoriesEntity>> loader = new AsyncTaskLoader<List<StoriesEntity>>(getActivity()) {
+                    @Override
+                    public List<StoriesEntity> loadInBackground() {
+                        return StoriesEntity.selectAll();
+                    }
+                };
+                loader.forceLoad();
+                return loader;
+            }
+
+            @Override
+            public void onLoadFinished(Loader<List<StoriesEntity>> loader, List<StoriesEntity> data) {
+                recyclerView.setAdapter(new StoriesAdapter(data));//через адаптер подгрузили данные во фрагмент
+
+            }
+
+
+            @Override
+            public void onLoaderReset(Loader<List<StoriesEntity>> loader) {
+
+            }
+        });
+
     }
 
 }

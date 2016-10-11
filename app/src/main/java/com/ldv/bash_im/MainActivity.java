@@ -11,9 +11,11 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 
-import com.ldv.bash_im.ui.fragments.FavouriteFragment_;
+import com.ldv.bash_im.ui.entities.StoriesEntity;
+import com.ldv.bash_im.ui.fragments.FavoriteFragment_;
 import com.ldv.bash_im.ui.fragments.StoriesFragment_;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
@@ -50,7 +52,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                   }
               }
           });
+          if (StoriesEntity.selectAll().isEmpty()) {
+              generateCategories();
+          }
       }
+
+    private void generateCategories() { //тут сами генерим категории
+        StoriesEntity storiesEntity = new StoriesEntity();
+        storiesEntity.setName("Products");
+        storiesEntity.save();
+        StoriesEntity storiesEntity1 = new StoriesEntity();
+        storiesEntity1.setName("RRRoducts");
+        storiesEntity1.save();
+        Log.d(LOG_TAG, "onn resume, load stories");
+
+    }
 
     //добавление тулбара
     private void setupActionBar() {
@@ -95,8 +111,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 replaceFragment(new StoriesFragment_());//вівели фрагмент
                 return true;
 
-            case R.id.drawer_favourite:
-                replaceFragment(new FavouriteFragment_());
+            case R.id.drawer_favorite:
+                replaceFragment(new FavoriteFragment_());
                 return true;
 
             case R.id.drawer_exit:
@@ -128,9 +144,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             toolbar.setTitle (getString(R.string.nav_drawer_stories));
             navigationView.setCheckedItem(R.id.drawer_stories);//Выделили пункт меню
         }
-        else if (fragmentClassName.equals(FavouriteFragment_.class.getName())){//если имя фрагмента,на который вернулись, равно имени фрагмента траты
+        else if (fragmentClassName.equals(FavoriteFragment_.class.getName())){//если имя фрагмента,на который вернулись, равно имени фрагмента траты
             toolbar.setTitle (getString(R.string.nav_drawer_favourite));
-            navigationView.setCheckedItem(R.id.drawer_favourite);//Выделили пункт меню
+            navigationView.setCheckedItem(R.id.drawer_favorite);//Выделили пункт меню
         }
 
 
