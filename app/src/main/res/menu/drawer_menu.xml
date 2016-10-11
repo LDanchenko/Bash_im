@@ -2,20 +2,16 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:id="@+id/grp1" android:checkableBehavior="single">
         <item
-            android:id="@+id/drawer_expenses"
-            android:title="@string/nav_drawer_histories"
+            android:id="@+id/drawer_stories"
+            android:title="@string/nav_drawer_stories"
             android:checked="true"/>
         <item
-            android:id="@+id/drawer_categories"
-            android:title="@string/nav_drawer_favorite"/>
+            android:id="@+id/drawer_favourite"
+            android:title="@string/nav_drawer_favourite"/>
         </group>
     <group android:id="@+id/grp2" android:checkableBehavior="single">
         <item
-            android:id="@+id/drawer_settings"
-            android:title="@string/nav_drawer_settings"/>
-
-        <item
-            android:id="@+id/drawer_statistics"
+            android:id="@+id/drawer_exit"
             android:title="@string/nav_drawer_exit"/>
     </group>
 </menu>

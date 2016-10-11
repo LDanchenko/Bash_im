@@ -3,8 +3,8 @@
 
     <string name="navigation_drawer_open" translatable="false">Open navigation drawer</string>
 <string name="navigation_drawer_close" translatable="false">Close navigation drawer</string>
-    <string name="nav_drawer_histories">Все истории</string>
-    <string name="nav_drawer_favorite">Категории</string>
+    <string name="nav_drawer_stories">Все истории</string>
+    <string name="nav_drawer_favourite">Избранное</string>
     <string name="nav_drawer_settings">Настройки</string>
     <string name="nav_drawer_exit">Выход</string>
 </resources>
