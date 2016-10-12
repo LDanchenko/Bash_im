@@ -1,6 +1,7 @@
 package com.ldv.bash_im.ui.entities;
 
 
+import com.google.gson.annotations.SerializedName;
 import com.orm.SugarRecord;
 import com.orm.dsl.Column;
 import com.orm.query.Select;
@@ -9,25 +10,29 @@ import java.util.List;
 
 public class StoriesEntity extends SugarRecord {
 
-    public String name;
+    @SerializedName("site")
+    private String site;
 
-    public StoriesEntity(){
+    @SerializedName("name")
+    private String name;
 
-    }
+    @SerializedName("desc")
+    private String desc;
 
+    @SerializedName("link")
+    private String link;
 
+    @SerializedName("elementPureHtml")
+    private String elementPureHtml;
 
-    public String getName(){
-        return name;
-    }
+  public StoriesEntity(){
 
-    public void setName(String name)
-    {
-        this.name = name;
-    }
+  }
+
 
     public static  List<StoriesEntity> selectAll(){
-        return StoriesEntity.listAll(StoriesEntity.class);
+        List<StoriesEntity> allStories = StoriesEntity.listAll(StoriesEntity.class);
+        return allStories;
     }
 }
 

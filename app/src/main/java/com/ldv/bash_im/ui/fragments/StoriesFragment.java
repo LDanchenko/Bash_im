@@ -39,7 +39,7 @@ public class StoriesFragment extends Fragment {
         recyclerView = (RecyclerView) rootView.findViewById(R.id.list_of_stories);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
        // getLoaderManager().restartLoader(1, null, this);
-     //StoriesAdapter storiesAdapter = new StoriesAdapter(g);
+     //StoriesAdapter storiesAdapter = new StoriesAdapter(List);
        //recyclerView.setAdapter(storiesAdapter);
         return rootView;
     }
@@ -47,14 +47,21 @@ public class StoriesFragment extends Fragment {
 
     public void onResume() {
         super.onResume();
-          loadCategories();
+        generateCategories();
+        //  loadCategories();
     }
 
 
 
+    private void generateCategories() { //тут сами генерим категории
+        StoriesEntity storiesEntity = new StoriesEntity();
+        storiesEntity.setName("Products");
+        storiesEntity.save();
+        Log.d(LOG_TAG, "onn resume, load stories");
 
+    }
 
-
+/*
     public void loadCategories (){
         getLoaderManager().restartLoader(0, null, new LoaderManager.LoaderCallbacks<List<StoriesEntity>>() {
             @Override
@@ -83,5 +90,5 @@ public class StoriesFragment extends Fragment {
         });
 
     }
-
+*/
 }

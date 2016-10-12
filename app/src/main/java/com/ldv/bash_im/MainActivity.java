@@ -13,12 +13,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.Toast;
 
+import com.ldv.bash_im.rest.NetworkStatusChecker;
+import com.ldv.bash_im.ui.BackgroundTask;
 import com.ldv.bash_im.ui.entities.StoriesEntity;
 import com.ldv.bash_im.ui.fragments.FavoriteFragment_;
 import com.ldv.bash_im.ui.fragments.StoriesFragment_;
 import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.NonConfigurationInstance;
 import org.androidannotations.annotations.ViewById;
 
 
@@ -34,6 +39,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @ViewById(R.id.navigation_view)
     NavigationView navigationView;
+
+    @NonConfigurationInstance
+    @Bean
+    BackgroundTask task;
 
       @AfterViews
       void ready(){
@@ -53,11 +62,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
               }
           });
           if (StoriesEntity.selectAll().isEmpty()) {
-              generateCategories();
+         //     generateCategories();
           }
+
+
       }
 
-    private void generateCategories() { //тут сами генерим категории
+   /* private void generateCategories() { //тут сами генерим категории
         StoriesEntity storiesEntity = new StoriesEntity();
         storiesEntity.setName("Products");
         storiesEntity.save();
@@ -66,7 +77,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         storiesEntity1.save();
         Log.d(LOG_TAG, "onn resume, load stories");
 
-    }
+    }*/
 
     //добавление тулбара
     private void setupActionBar() {
@@ -77,7 +88,26 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
-        //добавление навигации
+    public void showResult(String result) {
+            Toast.makeText(getApplicationContext(),result , Toast.LENGTH_SHORT).show();
+    }
+
+    public void UnknownError(){ //неизвестная ошибка
+        Toast.makeText(getApplicationContext(), R.string.unknown_error, Toast.LENGTH_SHORT).show();
+    }
+
+
+    void checkInternet(){
+        NetworkStatusChecker networkStatusChecker = new NetworkStatusChecker();
+        boolean internet = networkStatusChecker.isNetworkAvailable(getApplicationContext());
+        if (internet==false) {
+            Toast.makeText(getApplicationContext(), R.string.no_internet,Toast.LENGTH_SHORT).show();
+        }
+        else {
+            task.getStories();
+        }
+    }
+    //добавление навигации
         private void setupDrawerLayout() {
             ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                     this, drawerLayout, toolbar, R.string.navigation_drawer_open,
@@ -116,7 +146,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 return true;
 
             case R.id.drawer_exit:
-                this.finish();//Закрыли мейн активити
+                //this.finish();//Закрыли мейн активити
+                checkInternet();
         }
         return true;
 
