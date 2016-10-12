@@ -1,5 +1,6 @@
 package com.ldv.bash_im.ui.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.ldv.bash_im.R;
@@ -20,6 +22,7 @@ import com.ldv.bash_im.ui.adapters.StoriesAdapter;
 import com.ldv.bash_im.ui.entities.StoriesEntity;
 
 import org.androidannotations.annotations.Background;
+import org.androidannotations.annotations.ViewById;
 
 import java.util.List;
 
@@ -31,7 +34,7 @@ import retrofit2.Response;
 public class StoriesFragment extends Fragment {
 
     private RecyclerView recyclerView;
-    private String LOG_TAG="LOGI";
+
 
     @Nullable
     @Override
@@ -50,6 +53,7 @@ public class StoriesFragment extends Fragment {
         //зачем тут проверка инета - пока нет бд
       //если есть инет берем даннные с инета
 
+
         return rootView;
     }
 
@@ -62,6 +66,8 @@ public class StoriesFragment extends Fragment {
     }
 
     //потом сделай его бэкграйнд
+
+
 
 
 

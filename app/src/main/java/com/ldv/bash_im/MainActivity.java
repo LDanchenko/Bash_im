@@ -113,7 +113,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     if (StoriesEntity.selectAll().isEmpty()){
                         for (StoriesEntity stori : storiesEntities) {
                             StoriesEntity stor = new StoriesEntity(stori.getName(), stori.getSite(),
-                                    stori.getDesc(), stori.getLink(), stori.getElementPureHtml(), true);
+                                    stori.getDesc(), stori.getLink(), stori.getElementPureHtml(), false);
                             stor.save();
                         }
                     }
