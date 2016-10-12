@@ -2,12 +2,14 @@ package com.ldv.bash_im.ui.adapters;
 
 import android.content.ClipData;
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,12 +17,15 @@ import com.ldv.bash_im.R;
 import com.ldv.bash_im.rest.StoriesModel;
 import com.ldv.bash_im.ui.entities.StoriesEntity;
 
+import org.androidannotations.annotations.ViewById;
+
 import java.util.List;
 
 public class StoriesAdapter extends RecyclerView.Adapter<StoriesAdapter.StoriesHolder> { //передали класс что нижечерез адаптер
 
 
-    private static View.OnClickListener itemListener;
+
+    ImageButton button;
 
     private List<StoriesEntity> storiesList; //создали экземпляр списка
 
@@ -49,34 +54,42 @@ public class StoriesAdapter extends RecyclerView.Adapter<StoriesAdapter.StoriesH
         return storiesList.size();
     }
 
-    public class StoriesHolder extends RecyclerView.ViewHolder  {//тут ищем  текст вью для вывода категори
+    public class StoriesHolder extends RecyclerView.ViewHolder {//тут ищем  текст вью для вывода категори
 
         TextView stories_name;
-        Button button;
+        ImageButton button;
 
 
         public StoriesHolder(View itemView) {//konstruktor
-           super(itemView);
+            super(itemView);
             View v = itemView;
-
-
-            button = (Button) itemView.findViewById(R.id.favorite_button);
             stories_name = (TextView) itemView.findViewById(R.id.stories_item_name);//нашли поле в текст вью
-         //   button.setOnClickListener(new View.OnClickListener() {
-            button.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    int position  =   getAdapterPosition();
-                    StoriesEntity storiesEntity = StoriesEntity.findById(StoriesEntity.class, position+1);
-                    storiesEntity.setFavorite(true);
-                    storiesEntity.save();
+            button = (ImageButton) itemView.findViewById(R.id.favorite);
+
+            for (int i = 1; i <getItemCount(); i++) {
+                StoriesEntity storiesEntity = StoriesEntity.findById(StoriesEntity.class, i);
+                if (storiesEntity.getFavorite() == true) {
+                    button.setImageResource(R.drawable.button_pressed);
                 }
-            });
+
+            }
+
+                button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        int position = getAdapterPosition();
+                        StoriesEntity storiesEntity = StoriesEntity.findById(StoriesEntity.class, position + 1);
+                        storiesEntity.setFavorite(true);
+                        storiesEntity.save();
+                        button.setImageResource(R.drawable.button_normal);
+                    }
+                });
+
+
 
         }
-
-    }
-}
+    }}
 
 
 

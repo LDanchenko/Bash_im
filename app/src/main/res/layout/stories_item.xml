@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:padding="16dp"
         android:id="@+id/stories_item_inner_layout">
-        <TextView
+       <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/stories_item_name"
@@ -22,11 +22,15 @@
 
             />
 
-        <Button
+        <ImageButton
+            android:layout_marginTop="40sp"
+            android:id="@+id/favorite"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/stories_item_name"
+            android:background="#00ffffff"
+            android:src="@drawable/button_focused"
+            android:onClick="onToggleStar"/>
 
-            android:id="@+id/favorite_button"/>
     </RelativeLayout>
 </android.support.v7.widget.CardView>
