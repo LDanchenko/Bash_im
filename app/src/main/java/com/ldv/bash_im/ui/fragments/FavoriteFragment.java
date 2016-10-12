@@ -19,7 +19,6 @@ import org.androidannotations.annotations.EFragment;
 import java.util.ArrayList;
 import java.util.List;
 
-@EFragment
 public class FavoriteFragment extends Fragment {
 
     private RecyclerView recyclerView;

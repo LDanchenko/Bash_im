@@ -18,8 +18,8 @@ import android.widget.Toast;
 import com.ldv.bash_im.rest.NetworkStatusChecker;
 import com.ldv.bash_im.ui.BackgroundTask;
 import com.ldv.bash_im.ui.entities.StoriesEntity;
-import com.ldv.bash_im.ui.fragments.FavoriteFragment_;
-import com.ldv.bash_im.ui.fragments.StoriesFragment_;
+import com.ldv.bash_im.ui.fragments.FavoriteFragment;
+import com.ldv.bash_im.ui.fragments.StoriesFragment;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EActivity;
@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
           toolbar.setTitle("TOOLBAR");
           setupActionBar();
           setupDrawerLayout();
-          replaceFragment(new StoriesFragment_());
+          replaceFragment(new StoriesFragment());
 
           getSupportFragmentManager().addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {//повесили слушатель на бэк стэк (метод replace fragment)
               //обновляет в зависимости от фрагмента
@@ -61,9 +61,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                   }
               }
           });
-          if (StoriesEntity.selectAll().isEmpty()) {
+         // if (StoriesEntity.selectAll().isEmpty()) {
          //     generateCategories();
-          }
+          //}
 
 
       }
@@ -78,6 +78,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Log.d(LOG_TAG, "onn resume, load stories");
 
     }*/
+
+
 
     //добавление тулбара
     private void setupActionBar() {
@@ -138,11 +140,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         switch (item.getItemId()){//нашли id из drawer_menu
             case R.id.drawer_stories:
-                replaceFragment(new StoriesFragment_());//вівели фрагмент
+                replaceFragment(new StoriesFragment());//вівели фрагмент
                 return true;
 
             case R.id.drawer_favorite:
-                replaceFragment(new FavoriteFragment_());
+                replaceFragment(new FavoriteFragment());
                 return true;
 
             case R.id.drawer_exit:
@@ -171,11 +173,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void updateTitleAndDrawer (Fragment fragment){//метод для обновления тулбара и меню по нажатию кнопки назад
         String fragmentClassName = fragment.getClass().getName();//получили имя фрагмента
 
-        if (fragmentClassName.equals(StoriesFragment_.class.getName())){//если имя фрагмента,на который вернулись, равно имени фрагмента траты
+        if (fragmentClassName.equals(StoriesFragment.class.getName())){//если имя фрагмента,на который вернулись, равно имени фрагмента траты
             toolbar.setTitle (getString(R.string.nav_drawer_stories));
             navigationView.setCheckedItem(R.id.drawer_stories);//Выделили пункт меню
         }
-        else if (fragmentClassName.equals(FavoriteFragment_.class.getName())){//если имя фрагмента,на который вернулись, равно имени фрагмента траты
+        else if (fragmentClassName.equals(FavoriteFragment.class.getName())){//если имя фрагмента,на который вернулись, равно имени фрагмента траты
             toolbar.setTitle (getString(R.string.nav_drawer_favourite));
             navigationView.setCheckedItem(R.id.drawer_favorite);//Выделили пункт меню
         }
