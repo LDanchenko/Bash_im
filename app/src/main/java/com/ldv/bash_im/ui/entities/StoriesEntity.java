@@ -10,6 +10,7 @@ import java.util.List;
 
 public class StoriesEntity extends SugarRecord {
 
+
   @SerializedName("site")
     public String site;
 
@@ -25,6 +26,7 @@ public class StoriesEntity extends SugarRecord {
     @SerializedName("elementPureHtml")
     public String elementPureHtml;
 
+    public boolean favorite;
 
     public String getName(){
         return name;
@@ -66,21 +68,35 @@ public class StoriesEntity extends SugarRecord {
     this.elementPureHtml=elementPureHtml;
   }
 
+    public boolean getFavorite() {
+
+        return favorite;}
+
+    public void setFavorite(boolean favorite) {this.favorite=favorite;}
+
   public StoriesEntity(){
   }
 
-    public StoriesEntity (String name, String site, String desc, String link, String elementPureHtml) {
+    public StoriesEntity (String name, String site, String desc, String link, String elementPureHtml, boolean favorite) {
         this.name = name;
         this.site = site;
         this.desc = desc;
         this.link = link;
         this.elementPureHtml=elementPureHtml;
+        this.favorite=favorite;
     }
+
 
 
 
     public static  List<StoriesEntity> selectAll(){
         List<StoriesEntity> allStories = StoriesEntity.listAll(StoriesEntity.class);
+        return allStories;
+    }
+
+    public static  List<StoriesEntity> selectFavorite(){
+
+        List<StoriesEntity> allStories = StoriesEntity.find(StoriesEntity.class, "favorite = ?", "1");
         return allStories;
     }
 }

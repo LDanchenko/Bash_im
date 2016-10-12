@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
@@ -32,7 +33,7 @@ import retrofit2.Response;
 @EActivity(R.layout.splash_activity)
 public class SplashActivity extends AppCompatActivity {
 
-
+    public final String LOG_TAG = "LOGGGG";
     public final int SPLASH_DISPLAY_LENGTH = 800;
 
     @NonConfigurationInstance
@@ -110,10 +111,11 @@ public class SplashActivity extends AppCompatActivity {
 
                     if (StoriesEntity.selectAll().isEmpty()){
                         for (StoriesEntity stori : storiesEntities) {
-                            StoriesEntity stor = new StoriesEntity(stori.getName(), stori.getSite(),
-                                    stori.getDesc(), stori.getLink(), stori.getElementPureHtml());
-                            stor.save();
+                            StoriesEntity ty = new StoriesEntity();
 
+                            StoriesEntity stor = new StoriesEntity(stori.getName(), stori.getSite(),
+                                    stori.getDesc(), stori.getLink(), stori.getElementPureHtml(), true);
+                            stor.save();
                         }
                     }
                     //  StoriesAdapter storiesAdapter = new StoriesAdapter(storiesEntities);

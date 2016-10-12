@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @ViewById
     Toolbar toolbar;
 
+
     @ViewById (R.id.drawer_layout)
     DrawerLayout drawerLayout;
 
@@ -112,9 +113,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     if (StoriesEntity.selectAll().isEmpty()){
                         for (StoriesEntity stori : storiesEntities) {
                             StoriesEntity stor = new StoriesEntity(stori.getName(), stori.getSite(),
-                                    stori.getDesc(), stori.getLink(), stori.getElementPureHtml());
+                                    stori.getDesc(), stori.getLink(), stori.getElementPureHtml(), true);
                             stor.save();
-
                         }
                     }
                     //  StoriesAdapter storiesAdapter = new StoriesAdapter(storiesEntities);

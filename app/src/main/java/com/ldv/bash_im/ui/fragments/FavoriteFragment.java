@@ -3,6 +3,9 @@ package com.ldv.bash_im.ui.fragments;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.AsyncTaskLoader;
+import android.support.v4.content.Loader;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -12,7 +15,7 @@ import android.view.ViewGroup;
 
 import com.ldv.bash_im.R;
 import com.ldv.bash_im.ui.adapters.FavoriteAdapter;
-import com.ldv.bash_im.ui.models.FavoriteModel;
+import com.ldv.bash_im.ui.entities.StoriesEntity;
 
 import org.androidannotations.annotations.EFragment;
 
@@ -33,25 +36,47 @@ public class FavoriteFragment extends Fragment {
         recyclerView = (RecyclerView) rootView.findViewById(R.id.list_of_favorite);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        // getLoaderManager().restartLoader(1, null, this);
-        FavoriteAdapter favoriteAdapter = new FavoriteAdapter(getFavorite());
-        recyclerView.setAdapter(favoriteAdapter);
         return rootView;
     }
 
 
     public void onResume() {
         super.onResume();
+        loadCategories();
         Log.d(LOG_TAG, "onn resume, load stories");
     }
 
 
-    private List<FavoriteModel> getFavorite(){
-        List<FavoriteModel> favorite = new ArrayList<>();
-        favorite.add(new FavoriteModel("FAVORITE"));
 
 
-        return favorite;
+
+    public void loadCategories (){
+        getLoaderManager().restartLoader(0, null, new LoaderManager.LoaderCallbacks<List<StoriesEntity>>() {
+            @Override
+            public Loader<List<StoriesEntity>> onCreateLoader(int id, Bundle args) {
+                final AsyncTaskLoader<List<StoriesEntity>> loader = new AsyncTaskLoader<List<StoriesEntity>>(getActivity()) {
+                    @Override
+                    public List<StoriesEntity> loadInBackground() {
+                        return StoriesEntity.selectFavorite();
+                    }
+                };
+                loader.forceLoad();
+                return loader;
+            }
+
+            @Override
+            public void onLoadFinished(Loader<List<StoriesEntity>> loader, List<StoriesEntity> data) {
+                recyclerView.setAdapter(new FavoriteAdapter(data));//через адаптер подгрузили данные во фрагмент
+
+            }
+
+
+            @Override
+            public void onLoaderReset(Loader<List<StoriesEntity>> loader) {
+
+            }
+        });
+
     }
 
 }
