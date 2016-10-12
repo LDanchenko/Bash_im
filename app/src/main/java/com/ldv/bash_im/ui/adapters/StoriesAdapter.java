@@ -23,8 +23,8 @@ public class StoriesAdapter extends RecyclerView.Adapter<StoriesAdapter.StoriesH
     @Override
     public StoriesHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-               // .inflate(R.layout.stories_item, parent, false);//данные передаем в categories_item(карточка).xml
-        .inflate(R.layout.splash_activity, parent, false);
+                .inflate(R.layout.stories_item, parent, false);//данные передаем в categories_item(карточка).xml
+      //  .inflate(R.layout.splash_activity, parent, false);
         return new StoriesHolder(itemView);
     }
 
@@ -44,8 +44,8 @@ public class StoriesAdapter extends RecyclerView.Adapter<StoriesAdapter.StoriesH
         TextView stories_name;
 
         public StoriesHolder(View itemView) {//konstruktor
-            super(itemView);
-            stories_name = (TextView) itemView.findViewById(R.id.result);//нашли поле в текст вью
+           super(itemView);
+            stories_name = (TextView) itemView.findViewById(R.id.stories_item_name);//нашли поле в текст вью
 
         }
     }

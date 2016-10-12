@@ -10,8 +10,6 @@ import java.util.List;
 public class StoriesModel {
 
 
-
-
     @SerializedName("site")
     private String site;
 
@@ -27,6 +25,7 @@ public class StoriesModel {
     @SerializedName("elementPureHtml")
     private String elementPureHtml;
 
+    public StoriesModel(){}
 
     public String getSite() {
         return site;

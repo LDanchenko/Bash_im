@@ -11,23 +11,23 @@ import java.util.List;
 public class StoriesEntity extends SugarRecord {
 
     @SerializedName("site")
-    private String site;
+    public String site;
 
     @SerializedName("name")
-    private String name;
+    public String name;
 
     @SerializedName("desc")
-    private String desc;
+    public String desc;
 
     @SerializedName("link")
-    private String link;
+    public String link;
 
     @SerializedName("elementPureHtml")
-    private String elementPureHtml;
+    public String elementPureHtml;
 
   public StoriesEntity(){
-
   }
+
 
 
     public static  List<StoriesEntity> selectAll(){

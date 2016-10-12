@@ -1,5 +1,7 @@
 package com.ldv.bash_im.rest;
 
+import com.ldv.bash_im.ui.entities.StoriesEntity;
+
 import java.util.List;
 
 import retrofit2.Call;
@@ -14,6 +16,6 @@ public interface UmoroliApi {
     @GET ("get")
 
     Call<List<StoriesModel>> get_stories (@Query("site") String site,
-                                          @Query("name") String name,
-                                          @Query("num") int num);
+                                     @Query("name") String name,
+                                     @Query("num") int num);
 }

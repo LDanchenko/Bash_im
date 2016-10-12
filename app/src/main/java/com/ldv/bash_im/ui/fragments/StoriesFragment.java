@@ -47,19 +47,19 @@ public class StoriesFragment extends Fragment {
 
     public void onResume() {
         super.onResume();
-        generateCategories();
+      //  generateCategories();
         //  loadCategories();
     }
 
 
-
+/*
     private void generateCategories() { //тут сами генерим категории
         StoriesEntity storiesEntity = new StoriesEntity();
         storiesEntity.setName("Products");
         storiesEntity.save();
         Log.d(LOG_TAG, "onn resume, load stories");
 
-    }
+    }*/
 
 /*
     public void loadCategories (){

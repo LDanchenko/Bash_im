@@ -3,16 +3,23 @@ package com.ldv.bash_im.ui;
 import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ldv.bash_im.MainActivity_;
 import com.ldv.bash_im.R;
 import com.ldv.bash_im.rest.NetworkStatusChecker;
+import com.ldv.bash_im.rest.StoriesModel;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.NonConfigurationInstance;
+import org.androidannotations.annotations.ViewById;
+
+import java.util.List;
 
 
 @EActivity(R.layout.splash_activity)
@@ -25,6 +32,9 @@ public class SplashActivity extends AppCompatActivity {
     @Bean
     BackgroundTask task;
 
+
+    @ViewById
+    TextView textView1;
     @AfterViews
     void ready() {
 
@@ -43,8 +53,10 @@ public class SplashActivity extends AppCompatActivity {
     }
 
 
-    public void showResult(String result) {
-        Toast.makeText(getApplicationContext(),"RESULT "+ result , Toast.LENGTH_SHORT).show();
+    public void showResult(String name, String link, String text) {
+        //storiesModels.
+       //Toast.makeText(getApplicationContext(),"RESULT "+ name + "  " + link , Toast.LENGTH_SHORT).show();
+        textView1.setText(" name: " + name +  "  link:" + link + "  text" + text);
     }
 
     public void UnknownError(){ //неизвестная ошибка
