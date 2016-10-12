@@ -29,12 +29,15 @@ public class StoriesEntity extends SugarRecord {
     public String getName(){
         return name;
     }
+
     public void setName(String name){
         this.name=name;
     }
+
   public String getSite(){
     return site;
   }
+
   public void setSite(String site){
     this.site=site;
   }
@@ -42,6 +45,7 @@ public class StoriesEntity extends SugarRecord {
   public String getDesc(){
     return desc;
   }
+
   public void setDesc(String desc){
     this.desc=desc;
   }
@@ -49,6 +53,7 @@ public class StoriesEntity extends SugarRecord {
   public String getLink(){
     return link;
   }
+
   public void setLink(String link){
     this.link=link;
   }
@@ -56,12 +61,21 @@ public class StoriesEntity extends SugarRecord {
   public String getElementPureHtml(){
     return elementPureHtml;
   }
+
   public void setElementPureHtml(String elementPureHtml){
     this.elementPureHtml=elementPureHtml;
   }
 
   public StoriesEntity(){
   }
+
+    public StoriesEntity (String name, String site, String desc, String link, String elementPureHtml) {
+        this.name = name;
+        this.site = site;
+        this.desc = desc;
+        this.link = link;
+        this.elementPureHtml=elementPureHtml;
+    }
 
 
 

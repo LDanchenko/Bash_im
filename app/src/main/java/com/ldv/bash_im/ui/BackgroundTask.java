@@ -34,9 +34,9 @@ public class BackgroundTask {
 
     private final String LOG_TAG = "Ответ запроса";
     @RootContext
-    StoriesFragment mainActivity;
+    MainActivity mainActivity;
 
-
+/*
     @Background
     public void getStories()  {
         RestService restService = new RestService(); //там все связывается и реализуется
@@ -60,7 +60,7 @@ public class BackgroundTask {
                     // String link = stories_data.get(i).getLink();
                     //String text = stories_data.get(i).getElementPureHtml();
 
-                    updateRegistrationUI(stories_data);
+                    //updateRegistrationUI(stories_data);
                 }
                 }
             }
@@ -93,13 +93,13 @@ public class BackgroundTask {
 
     // Notice that we manipulate the activity ref only from the UI thread
 
-    @UiThread
+  //  @UiThread
 
-    void updateRegistrationUI(List<StoriesEntity> storiesEntities) {
+/*    void updateRegistrationUI(List<StoriesEntity> storiesEntities) {
         mainActivity.showResult(storiesEntities);
         //mainActivity.showResult(name,link,text);
     }
-
+*/
     //@UiThread
   //  void UnknownRegistrationError(){
      //  mainActivity.UnknownError();

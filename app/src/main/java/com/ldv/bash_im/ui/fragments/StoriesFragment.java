@@ -8,22 +8,24 @@ import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.Html;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.ldv.bash_im.R;
+import com.ldv.bash_im.rest.NetworkStatusChecker;
+import com.ldv.bash_im.rest.RestService;
 import com.ldv.bash_im.ui.adapters.StoriesAdapter;
 import com.ldv.bash_im.ui.entities.StoriesEntity;
-import com.ldv.bash_im.ui.models.StoriesModel;
 
-import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.Background;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class StoriesFragment extends Fragment {
@@ -37,13 +39,17 @@ public class StoriesFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.stories_fragment,container,false);
 
 
-        recyclerView = (RecyclerView) rootView.findViewById(R.id.list_of_stories);
+       recyclerView = (RecyclerView) rootView.findViewById(R.id.list_of_stories);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+      //getLoaderManager().restartLoader(1, null, this);
+        //loadCategories();
 
-      //  getLoaderManager().restartLoader(1, null, this);
+   // StoriesAdapter storiesAdapter = new StoriesAdapter();
+     //  recyclerView.setAdapter(storiesAdapter);
 
-     //StoriesAdapter storiesAdapter = new StoriesAdapter(List);
-       //recyclerView.setAdapter(storiesAdapter);
+        //зачем тут проверка инета - пока нет бд
+      //если есть инет берем даннные с инета
+
         return rootView;
     }
 
@@ -52,16 +58,14 @@ public class StoriesFragment extends Fragment {
     public void onResume() {
         super.onResume();
         //generateCategories();
-         //loadCategories();
+         loadCategories();
     }
 
-    public void showResult(List<StoriesEntity> storiesEntities) {
-        StoriesAdapter storiesAdapter = new StoriesAdapter(storiesEntities);
-        recyclerView.setAdapter(storiesAdapter);
-        //storiesModels.
-        //Toast.makeText(getApplicationContext(),"RESULT "+ name + "  " + link , Toast.LENGTH_SHORT).show();
-        //textView1.setText(" name: " + name +  "  link:" + link + "  text" + Html.fromHtml(text));
-    }
+    //потом сделай его бэкграйнд
+
+
+
+
 
 
    /* private void generateCategories() { //тут сами генерим категории

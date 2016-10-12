@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.ldv.bash_im.MainActivity_;
 import com.ldv.bash_im.R;
 import com.ldv.bash_im.rest.NetworkStatusChecker;
+import com.ldv.bash_im.rest.RestService;
 import com.ldv.bash_im.rest.StoriesModel;
 import com.ldv.bash_im.ui.entities.StoriesEntity;
 
@@ -22,6 +23,10 @@ import org.androidannotations.annotations.NonConfigurationInstance;
 import org.androidannotations.annotations.ViewById;
 
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 @EActivity(R.layout.splash_activity)
@@ -40,7 +45,14 @@ public class SplashActivity extends AppCompatActivity {
     @AfterViews
     void ready() {
 
-        checkInternet();
+        NetworkStatusChecker networkStatusChecker = new NetworkStatusChecker();
+        boolean internet = networkStatusChecker.isNetworkAvailable(getApplicationContext());
+        if (internet==false) {
+            Toast.makeText(getApplicationContext(), R.string.no_internet,Toast.LENGTH_SHORT).show();
+        }
+        else {
+            setStories();
+        }
 
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -54,7 +66,7 @@ public class SplashActivity extends AppCompatActivity {
 
     }
 
-
+/*
     public void showResult(String name, String link, String text) {
         //storiesModels.
        //Toast.makeText(getApplicationContext(),"RESULT "+ name + "  " + link , Toast.LENGTH_SHORT).show();
@@ -74,7 +86,7 @@ public class SplashActivity extends AppCompatActivity {
         storiesEntity.setElementPureHtml(text);
         storiesEntity.save();
     }*/
-
+/*
     void checkInternet(){
         NetworkStatusChecker networkStatusChecker = new NetworkStatusChecker();
         boolean internet = networkStatusChecker.isNetworkAvailable(getApplicationContext());
@@ -84,5 +96,36 @@ public class SplashActivity extends AppCompatActivity {
         else {
             task.getStories();
         }
+    }*/
+
+    public void setStories(){
+        RestService restService = new RestService();
+        Call<List<StoriesEntity>> storiesModel = restService.get_story("bash.im", "bash", 3);
+        storiesModel.enqueue(new Callback<List<StoriesEntity>>() {
+            @Override
+            public void onResponse(Call<List<StoriesEntity>> call, Response<List<StoriesEntity>> response) {
+                if(response.isSuccessful()) {
+
+                    List<StoriesEntity> storiesEntities = response.body();
+
+                    if (StoriesEntity.selectAll().isEmpty()){
+                        for (StoriesEntity stori : storiesEntities) {
+                            StoriesEntity stor = new StoriesEntity(stori.getName(), stori.getSite(),
+                                    stori.getDesc(), stori.getLink(), stori.getElementPureHtml());
+                            stor.save();
+
+                        }
+                    }
+                    //  StoriesAdapter storiesAdapter = new StoriesAdapter(storiesEntities);
+                    //recyclerView.setAdapter(storiesAdapter);
+                }}
+
+
+            @Override
+            public void onFailure(Call<List<StoriesEntity>> call, Throwable t) {
+
+            }
+        });
     }
+
 }

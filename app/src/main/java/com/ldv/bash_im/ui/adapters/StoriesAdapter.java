@@ -1,6 +1,7 @@
 package com.ldv.bash_im.ui.adapters;
 
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,7 +32,7 @@ public class StoriesAdapter extends RecyclerView.Adapter<StoriesAdapter.StoriesH
     @Override
     public void onBindViewHolder(StoriesHolder holder, int position) {
         StoriesEntity stories = storiesList.get(position); //применили метод гет, получили данные из таблицы с такой то позиции
-        holder.stories_name.setText(stories.getName());
+        holder.stories_name.setText(Html.fromHtml(stories.getElementPureHtml()));
     }
 
     @Override

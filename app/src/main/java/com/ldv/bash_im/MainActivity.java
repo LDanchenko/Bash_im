@@ -16,7 +16,9 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.ldv.bash_im.rest.NetworkStatusChecker;
+import com.ldv.bash_im.rest.RestService;
 import com.ldv.bash_im.ui.BackgroundTask;
+import com.ldv.bash_im.ui.adapters.StoriesAdapter;
 import com.ldv.bash_im.ui.entities.StoriesEntity;
 import com.ldv.bash_im.ui.fragments.FavoriteFragment;
 import com.ldv.bash_im.ui.fragments.StoriesFragment;
@@ -25,6 +27,12 @@ import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.NonConfigurationInstance;
 import org.androidannotations.annotations.ViewById;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 @EActivity(R.layout.activity_main)
@@ -61,7 +69,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                   }
               }
           });
-         // if (StoriesEntity.selectAll().isEmpty()) {
+            //ИНЕТ ДЛЯ СИНХРОНИЗАЦИИ!!
+
+          /*NetworkStatusChecker networkStatusChecker = new NetworkStatusChecker();
+          boolean internet = networkStatusChecker.isNetworkAvailable(getApplicationContext());
+          if (internet==false) {
+              Toast.makeText(getApplicationContext(), R.string.no_internet,Toast.LENGTH_SHORT).show();
+          }
+          else {
+              setStories();
+          }*/
+
+          // if (StoriesEntity.selectAll().isEmpty()) {
          //     generateCategories();
           //}
 
@@ -78,6 +97,39 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Log.d(LOG_TAG, "onn resume, load stories");
 
     }*/
+
+
+    public void setStories(){
+        RestService restService = new RestService();
+        Call<List<StoriesEntity>> storiesModel = restService.get_story("bash.im", "bash", 3);
+        storiesModel.enqueue(new Callback<List<StoriesEntity>>() {
+            @Override
+            public void onResponse(Call<List<StoriesEntity>> call, Response<List<StoriesEntity>> response) {
+                if(response.isSuccessful()) {
+
+                    List<StoriesEntity> storiesEntities = response.body();
+
+                    if (StoriesEntity.selectAll().isEmpty()){
+                        for (StoriesEntity stori : storiesEntities) {
+                            StoriesEntity stor = new StoriesEntity(stori.getName(), stori.getSite(),
+                                    stori.getDesc(), stori.getLink(), stori.getElementPureHtml());
+                            stor.save();
+
+                        }
+                    }
+                    //  StoriesAdapter storiesAdapter = new StoriesAdapter(storiesEntities);
+                    //recyclerView.setAdapter(storiesAdapter);
+                }}
+
+
+            @Override
+            public void onFailure(Call<List<StoriesEntity>> call, Throwable t) {
+
+            }
+        });
+    }
+
+
 
 
 
@@ -106,7 +158,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             Toast.makeText(getApplicationContext(), R.string.no_internet,Toast.LENGTH_SHORT).show();
         }
         else {
-            task.getStories();
+           // task.getStories();
         }
     }
     //добавление навигации
