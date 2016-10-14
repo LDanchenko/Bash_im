@@ -46,7 +46,12 @@ public class StoriesAdapter extends RecyclerView.Adapter<StoriesAdapter.StoriesH
         StoriesEntity stories = storiesList.get(position); //применили метод гет, получили данные из таблицы с такой то позиции
         holder.stories_name.setText(Html.fromHtml(stories.getElementPureHtml()));
         //holder.stories_name.setText(stories.getName());
-
+        if (stories.getFavorite()==true){
+            holder.button.setImageResource(R.drawable.button_pressed);
+        }
+      else  if (stories.getFavorite()==false){
+            holder.button.setImageResource(R.drawable.button_normal);
+        }
     }
 
     @Override
@@ -66,14 +71,14 @@ public class StoriesAdapter extends RecyclerView.Adapter<StoriesAdapter.StoriesH
             stories_name = (TextView) itemView.findViewById(R.id.stories_item_name);//нашли поле в текст вью
             button = (ImageButton) itemView.findViewById(R.id.favorite);
 
-        /*    for (int i = 1; i <getItemCount(); i++) {
-                StoriesEntity storiesEntity = StoriesEntity.findById(StoriesEntity.class, i);
-                if (storiesEntity.getFavorite() == true) {
-                    button.setImageResource(R.drawable.button_pressed);
+          /*  for (int i = 1; i <=getItemCount(); i++) {
+                StoriesEntity storiesEntities = StoriesEntity.findById(StoriesEntity.class, i);
+                if (storiesEntities.getFavorite() == false) {
+                    button.setImageResource(R.drawable.button_normal);
                 }
-
-            }*/
-
+                else {button.setImageResource(R.drawable.button_pressed);}
+            }
+*/
                 button.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
