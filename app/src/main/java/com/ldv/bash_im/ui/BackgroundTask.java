@@ -4,15 +4,9 @@ package com.ldv.bash_im.ui;
  * Created by user on 11.10.2016.
  */
 
-import android.database.Cursor;
-import android.util.Log;
-import android.widget.EditText;
-
 import com.ldv.bash_im.MainActivity;
 import com.ldv.bash_im.rest.RestService;
-import com.ldv.bash_im.rest.StoriesModel;
 import com.ldv.bash_im.ui.entities.StoriesEntity;
-import com.ldv.bash_im.ui.fragments.StoriesFragment;
 
 
 import org.androidannotations.annotations.Background;
@@ -20,7 +14,6 @@ import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.RootContext;
 import org.androidannotations.annotations.UiThread;
 
-import java.io.IOException;
 import java.util.List;
 
 import retrofit2.Call;
@@ -34,7 +27,7 @@ public class BackgroundTask {
 
     private final String LOG_TAG = "Ответ запроса";
     @RootContext
-    MainActivity mainActivity;
+    SplashActivity mainActivity;
 
 /*
     @Background
@@ -88,22 +81,43 @@ public class BackgroundTask {
     }*/
 
 
+@Background
+public void setStories(){
+    RestService restService = new RestService();
+    Call<List<StoriesEntity>> storiesModel = restService.get_story("bash.im", "bash", 20);
+    storiesModel.enqueue(new Callback<List<StoriesEntity>>() {
+        @Override
+        public void onResponse(Call<List<StoriesEntity>> call, Response<List<StoriesEntity>> response) {
+            if(response.isSuccessful()) {
 
+                List<StoriesEntity> storiesEntities = response.body();
+
+               updateRegistrationUI(storiesEntities);
+                //  StoriesAdapter storiesAdapter = new StoriesAdapter(storiesEntities);
+                //recyclerView.setAdapter(storiesAdapter);
+            }}
+
+
+        @Override
+        public void onFailure(Call<List<StoriesEntity>> call, Throwable t) {
+        UnknownError();
+        }
+    });
+}
 
 
     // Notice that we manipulate the activity ref only from the UI thread
 
-  //  @UiThread
+    @UiThread
 
-/*    void updateRegistrationUI(List<StoriesEntity> storiesEntities) {
-        mainActivity.showResult(storiesEntities);
-        //mainActivity.showResult(name,link,text);
+   void updateRegistrationUI(List<StoriesEntity> storiesEntities) {
+        mainActivity.updateDB(storiesEntities);
     }
-*/
-    //@UiThread
-  //  void UnknownRegistrationError(){
-     //  mainActivity.UnknownError();
-   // }
+
+    @UiThread
+   void UnknownError(){
+      mainActivity.UnknownError();
+    }
 
 
 }

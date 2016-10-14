@@ -3,10 +3,6 @@ package com.ldv.bash_im.ui;
 import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.text.Html;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -14,7 +10,6 @@ import com.ldv.bash_im.MainActivity_;
 import com.ldv.bash_im.R;
 import com.ldv.bash_im.rest.NetworkStatusChecker;
 import com.ldv.bash_im.rest.RestService;
-import com.ldv.bash_im.rest.StoriesModel;
 import com.ldv.bash_im.ui.entities.StoriesEntity;
 
 import org.androidannotations.annotations.AfterViews;
@@ -52,7 +47,7 @@ public class SplashActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), R.string.no_internet,Toast.LENGTH_SHORT).show();
         }
         else {
-            setStories();
+            task.setStories();
         }
 
         new Handler().postDelayed(new Runnable() {
@@ -65,6 +60,21 @@ public class SplashActivity extends AppCompatActivity {
             }
         }, SPLASH_DISPLAY_LENGTH);
 
+    }
+
+    public void UnknownError(){ //неизвестная ошибка
+        Toast.makeText(getApplicationContext(), R.string.unknown_error, Toast.LENGTH_SHORT).show();
+    }
+
+    public void updateDB(List<StoriesEntity> storiesEntities){
+        if (StoriesEntity.selectAll().isEmpty()){
+            for (StoriesEntity stori : storiesEntities) {
+
+                StoriesEntity stor = new StoriesEntity(stori.getName(), stori.getSite(),
+                        stori.getDesc(), stori.getLink(), stori.getElementPureHtml(), false);
+                stor.save();
+            }
+        }
     }
 
 /*
@@ -98,10 +108,10 @@ public class SplashActivity extends AppCompatActivity {
             task.getStories();
         }
     }*/
-
+/*
     public void setStories(){
         RestService restService = new RestService();
-        Call<List<StoriesEntity>> storiesModel = restService.get_story("bash.im", "bash", 3);
+        Call<List<StoriesEntity>> storiesModel = restService.get_story("bash.im", "bash", 70);
         storiesModel.enqueue(new Callback<List<StoriesEntity>>() {
             @Override
             public void onResponse(Call<List<StoriesEntity>> call, Response<List<StoriesEntity>> response) {
@@ -129,5 +139,5 @@ public class SplashActivity extends AppCompatActivity {
             }
         });
     }
-
+*/
 }

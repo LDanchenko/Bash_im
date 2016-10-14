@@ -1,23 +1,15 @@
 package com.ldv.bash_im.ui.adapters;
 
-import android.content.ClipData;
-import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.ldv.bash_im.R;
-import com.ldv.bash_im.rest.StoriesModel;
 import com.ldv.bash_im.ui.entities.StoriesEntity;
-
-import org.androidannotations.annotations.ViewById;
 
 import java.util.List;
 

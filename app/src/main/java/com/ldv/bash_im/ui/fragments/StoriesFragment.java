@@ -9,6 +9,7 @@ import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,7 @@ import com.ldv.bash_im.ui.adapters.StoriesAdapter;
 import com.ldv.bash_im.ui.entities.StoriesEntity;
 
 import org.androidannotations.annotations.Background;
+import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
 
 import java.util.List;
@@ -30,57 +32,57 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-
+@EFragment
 public class StoriesFragment extends Fragment {
 
     private RecyclerView recyclerView;
 
+        private static final String LOG_TAG = "StoriesFragment";
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.stories_fragment,container,false);
 
-
        recyclerView = (RecyclerView) rootView.findViewById(R.id.list_of_stories);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-      //getLoaderManager().restartLoader(1, null, this);
-        //loadCategories();
-
-   // StoriesAdapter storiesAdapter = new StoriesAdapter();
-     //  recyclerView.setAdapter(storiesAdapter);
-
-        //зачем тут проверка инета - пока нет бд
-      //если есть инет берем даннные с инета
-
-
+//loadCategories();
+        Log.d(LOG_TAG, "onCreateView");
         return rootView;
+
     }
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        Log.d(LOG_TAG, "onAttach");
+    }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Log.d(LOG_TAG, "onCreate");
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        Log.d(LOG_TAG, "onActivityCreated");
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Log.d(LOG_TAG, "onStart");
+    }
 
     public void onResume() {
         super.onResume();
+       loadCategories();
         //generateCategories();
-         loadCategories();
     }
 
-    //потом сделай его бэкграйнд
-
-
-
-
-
-
-
-
-   /* private void generateCategories() { //тут сами генерим категории
-        StoriesEntity storiesEntity = new StoriesEntity();
-        storiesEntity.setName("Products");
-        storiesEntity.save();
-        Log.d(LOG_TAG, "onn resume, load stories");
-
-    }*/
+    //потом сделай его бэкгра
 
 
     public void loadCategories (){

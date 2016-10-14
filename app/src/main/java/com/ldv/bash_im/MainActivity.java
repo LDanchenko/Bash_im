@@ -22,6 +22,8 @@ import com.ldv.bash_im.ui.adapters.StoriesAdapter;
 import com.ldv.bash_im.ui.entities.StoriesEntity;
 import com.ldv.bash_im.ui.fragments.FavoriteFragment;
 import com.ldv.bash_im.ui.fragments.StoriesFragment;
+import com.ldv.bash_im.ui.fragments.StoriesFragment_;
+
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EActivity;
@@ -58,8 +60,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
           toolbar.setTitle("TOOLBAR");
           setupActionBar();
           setupDrawerLayout();
-          replaceFragment(new StoriesFragment());
-
+          replaceFragment(new StoriesFragment_());
           getSupportFragmentManager().addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {//повесили слушатель на бэк стэк (метод replace fragment)
               //обновляет в зависимости от фрагмента
               @Override
@@ -72,62 +73,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
           });
             //ИНЕТ ДЛЯ СИНХРОНИЗАЦИИ!!
 
-          /*NetworkStatusChecker networkStatusChecker = new NetworkStatusChecker();
-          boolean internet = networkStatusChecker.isNetworkAvailable(getApplicationContext());
-          if (internet==false) {
-              Toast.makeText(getApplicationContext(), R.string.no_internet,Toast.LENGTH_SHORT).show();
-          }
-          else {
-              setStories();
-          }*/
-
-          // if (StoriesEntity.selectAll().isEmpty()) {
-         //     generateCategories();
-          //}
-
 
       }
 
-   /* private void generateCategories() { //тут сами генерим категории
-        StoriesEntity storiesEntity = new StoriesEntity();
-        storiesEntity.setName("Products");
-        storiesEntity.save();
-        StoriesEntity storiesEntity1 = new StoriesEntity();
-        storiesEntity1.setName("RRRoducts");
-        storiesEntity1.save();
-        Log.d(LOG_TAG, "onn resume, load stories");
-
-    }*/
-
-
-    public void setStories(){
-        RestService restService = new RestService();
-        Call<List<StoriesEntity>> storiesModel = restService.get_story("bash.im", "bash", 3);
-        storiesModel.enqueue(new Callback<List<StoriesEntity>>() {
-            @Override
-            public void onResponse(Call<List<StoriesEntity>> call, Response<List<StoriesEntity>> response) {
-                if(response.isSuccessful()) {
-
-                    List<StoriesEntity> storiesEntities = response.body();
-
-                    if (StoriesEntity.selectAll().isEmpty()){
-                        for (StoriesEntity stori : storiesEntities) {
-                            StoriesEntity stor = new StoriesEntity(stori.getName(), stori.getSite(),
-                                    stori.getDesc(), stori.getLink(), stori.getElementPureHtml(), false);
-                            stor.save();
-                        }
-                    }
-                    //  StoriesAdapter storiesAdapter = new StoriesAdapter(storiesEntities);
-                    //recyclerView.setAdapter(storiesAdapter);
-                }}
-
-
-            @Override
-            public void onFailure(Call<List<StoriesEntity>> call, Throwable t) {
-
-            }
-        });
-    }
 
 
 
@@ -142,9 +90,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
-    public void showResult(String result) {
-            Toast.makeText(getApplicationContext(),result , Toast.LENGTH_SHORT).show();
-    }
+
 
     public void UnknownError(){ //неизвестная ошибка
         Toast.makeText(getApplicationContext(), R.string.unknown_error, Toast.LENGTH_SHORT).show();
@@ -158,7 +104,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             Toast.makeText(getApplicationContext(), R.string.no_internet,Toast.LENGTH_SHORT).show();
         }
         else {
-           // task.getStories();
+            task.setStories();
+        }
+    }
+
+    public void updateDB(List<StoriesEntity> storiesEntities){
+        if (StoriesEntity.selectAll().isEmpty()){
+            for (StoriesEntity stori : storiesEntities) {
+
+                StoriesEntity stor = new StoriesEntity(stori.getName(), stori.getSite(),
+                        stori.getDesc(), stori.getLink(), stori.getElementPureHtml(), false);
+                stor.save();
+            }
         }
     }
     //добавление навигации
@@ -192,7 +149,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         switch (item.getItemId()){//нашли id из drawer_menu
             case R.id.drawer_stories:
-                replaceFragment(new StoriesFragment());//вівели фрагмент
+                replaceFragment(new StoriesFragment_());//вівели фрагмент
                 return true;
 
             case R.id.drawer_favorite:
@@ -201,7 +158,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             case R.id.drawer_exit:
                 //this.finish();//Закрыли мейн активити
-                checkInternet();
+                //checkInternet();
         }
         return true;
 
@@ -225,7 +182,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void updateTitleAndDrawer (Fragment fragment){//метод для обновления тулбара и меню по нажатию кнопки назад
         String fragmentClassName = fragment.getClass().getName();//получили имя фрагмента
 
-        if (fragmentClassName.equals(StoriesFragment.class.getName())){//если имя фрагмента,на который вернулись, равно имени фрагмента траты
+        if (fragmentClassName.equals(StoriesFragment_.class.getName())){//если имя фрагмента,на который вернулись, равно имени фрагмента траты
             toolbar.setTitle (getString(R.string.nav_drawer_stories));
             navigationView.setCheckedItem(R.id.drawer_stories);//Выделили пункт меню
         }
