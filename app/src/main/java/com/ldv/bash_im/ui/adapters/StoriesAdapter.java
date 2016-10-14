@@ -66,13 +66,13 @@ public class StoriesAdapter extends RecyclerView.Adapter<StoriesAdapter.StoriesH
             stories_name = (TextView) itemView.findViewById(R.id.stories_item_name);//нашли поле в текст вью
             button = (ImageButton) itemView.findViewById(R.id.favorite);
 
-            for (int i = 1; i <getItemCount(); i++) {
+        /*    for (int i = 1; i <getItemCount(); i++) {
                 StoriesEntity storiesEntity = StoriesEntity.findById(StoriesEntity.class, i);
                 if (storiesEntity.getFavorite() == true) {
                     button.setImageResource(R.drawable.button_pressed);
                 }
 
-            }
+            }*/
 
                 button.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -80,9 +80,15 @@ public class StoriesAdapter extends RecyclerView.Adapter<StoriesAdapter.StoriesH
 
                         int position = getAdapterPosition();
                         StoriesEntity storiesEntity = StoriesEntity.findById(StoriesEntity.class, position + 1);
+
+                        if (storiesEntity.getFavorite()==false){
                         storiesEntity.setFavorite(true);
+                        button.setImageResource(R.drawable.button_pressed);}
+                           else {
+                                storiesEntity.setFavorite(false);
+                            button.setImageResource(R.drawable.button_focused);
+                        }
                         storiesEntity.save();
-                        button.setImageResource(R.drawable.button_normal);
                     }
                 });
 

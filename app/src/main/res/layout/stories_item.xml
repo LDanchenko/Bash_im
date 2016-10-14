@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/stories_item_name"
             android:background="#00ffffff"
-            android:src="@drawable/button_focused"
+            android:src="@drawable/button_normal"
             android:onClick="onToggleStar"/>
 
     </RelativeLayout>
