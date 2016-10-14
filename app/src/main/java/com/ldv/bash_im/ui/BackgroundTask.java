@@ -29,63 +29,11 @@ public class BackgroundTask {
     @RootContext
     SplashActivity mainActivity;
 
-/*
-    @Background
-    public void getStories()  {
-        RestService restService = new RestService(); //там все связывается и реализуется
-        //Сам запрос
-        //кол инкапсулирует модель в которую передали результат запроса
-        Call<List<StoriesEntity>> storiesModel = restService.get_story("bash.im", "bash", 4);
-        storiesModel.enqueue(new Callback<List<StoriesEntity>>() {
-            @Override
-            public void onResponse(Call<List<StoriesEntity>> call, Response<List<StoriesEntity>> response) {
-               if(response.isSuccessful()) {
-
-                   List<StoriesEntity> stories_data = response.body();
-//                StoriesEntity.save(response.body());
-
-
-                for (int i = 0; i < stories_data.size(); i++) {
-                    String name = stories_data.get(i).getName();
-
-                    String link = "";
-                    String text = "";
-                    // String link = stories_data.get(i).getLink();
-                    //String text = stories_data.get(i).getElementPureHtml();
-
-                    //updateRegistrationUI(stories_data);
-                }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<StoriesEntity>> call, Throwable t) {
-
-            }
-
-        });
-    }
-       /* try {
-
-           //Синхронный запрос
-            storiesModel.
-           // storiesModel.get(1);
-           // String result = storiesModel.getClass().getName();
-           // Log.d(LOG_TAG, "Status: " + result);
-           // updateRegistrationUI(storiesModel);//передаем в функицю, коротая передаетв активити реистрации
-        } catch (IOException e) {
-//Если запрос не выполнен – сообщаем пользователя об ошибке
-            e.printStackTrace();
-            UnknownRegistrationError();
-        }
-    }*/
-
-
-@Background
-public void setStories(){
-    RestService restService = new RestService();
-    Call<List<StoriesEntity>> storiesModel = restService.get_story("bash.im", "bash", 20);
-    storiesModel.enqueue(new Callback<List<StoriesEntity>>() {
+        @Background
+        public void setStories(){
+                RestService restService = new RestService();
+                Call<List<StoriesEntity>> storiesModel = restService.get_story("bash.im", "bash", 100);
+                storiesModel.enqueue(new Callback<List<StoriesEntity>>() {
         @Override
         public void onResponse(Call<List<StoriesEntity>> call, Response<List<StoriesEntity>> response) {
             if(response.isSuccessful()) {
@@ -93,10 +41,8 @@ public void setStories(){
                 List<StoriesEntity> storiesEntities = response.body();
 
                updateRegistrationUI(storiesEntities);
-                //  StoriesAdapter storiesAdapter = new StoriesAdapter(storiesEntities);
-                //recyclerView.setAdapter(storiesAdapter);
-            }}
 
+            }}
 
         @Override
         public void onFailure(Call<List<StoriesEntity>> call, Throwable t) {
@@ -104,9 +50,6 @@ public void setStories(){
         }
     });
 }
-
-
-    // Notice that we manipulate the activity ref only from the UI thread
 
     @UiThread
 
@@ -116,9 +59,8 @@ public void setStories(){
 
     @UiThread
    void UnknownError(){
-      mainActivity.UnknownError();
+        mainActivity.UnknownError();
     }
-
 
 }
 

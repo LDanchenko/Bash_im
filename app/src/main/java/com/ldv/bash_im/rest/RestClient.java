@@ -1,7 +1,5 @@
 package com.ldv.bash_im.rest;
 
-//Этот класс отвечает за домен (lmt.loftblog.tmweb.ru)
-
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;

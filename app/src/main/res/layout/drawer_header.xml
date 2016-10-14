@@ -6,4 +6,13 @@
     android:orientation="vertical"
     android:paddingTop="@dimen/drawer_status_bar_height"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="16dp"
+        android:layout_marginBottom="16dp"
+        android:text="@string/bash_im_mobile_client"
+        android:theme="@style/TextViewTheme"/>
     </RelativeLayout>

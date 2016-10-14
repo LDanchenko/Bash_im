@@ -43,49 +43,20 @@ public class StoriesFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.stories_fragment,container,false);
-
-       recyclerView = (RecyclerView) rootView.findViewById(R.id.list_of_stories);
+        recyclerView = (RecyclerView) rootView.findViewById(R.id.list_of_stories);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-//loadCategories();
         Log.d(LOG_TAG, "onCreateView");
         return rootView;
-
     }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        Log.d(LOG_TAG, "onAttach");
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        Log.d(LOG_TAG, "onCreate");
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        Log.d(LOG_TAG, "onActivityCreated");
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        Log.d(LOG_TAG, "onStart");
-    }
 
     public void onResume() {
         super.onResume();
-       loadCategories();
-        //generateCategories();
+       loadStories();
     }
 
-    //потом сделай его бэкгра
 
-
-    public void loadCategories (){
+    public void loadStories (){
         getLoaderManager().restartLoader(0, null, new LoaderManager.LoaderCallbacks<List<StoriesEntity>>() {
             @Override
             public Loader<List<StoriesEntity>> onCreateLoader(int id, Bundle args) {
@@ -104,7 +75,6 @@ public class StoriesFragment extends Fragment {
                 recyclerView.setAdapter(new StoriesAdapter(data));//через адаптер подгрузили данные во фрагмент
 
             }
-
 
             @Override
             public void onLoaderReset(Loader<List<StoriesEntity>> loader) {

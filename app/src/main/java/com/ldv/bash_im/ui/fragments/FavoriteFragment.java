@@ -21,7 +21,7 @@ import org.androidannotations.annotations.EFragment;
 
 import java.util.ArrayList;
 import java.util.List;
-
+@EFragment
 public class FavoriteFragment extends Fragment {
 
     private RecyclerView recyclerView;
@@ -31,26 +31,20 @@ public class FavoriteFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.favorite_fragment,container,false);
-
-
         recyclerView = (RecyclerView) rootView.findViewById(R.id.list_of_favorite);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
         return rootView;
     }
 
 
     public void onResume() {
         super.onResume();
-        loadCategories();
+        loadFavoriteStories();
         Log.d(LOG_TAG, "onn resume, load stories");
     }
 
 
-
-
-
-    public void loadCategories (){
+    public void loadFavoriteStories (){
         getLoaderManager().restartLoader(0, null, new LoaderManager.LoaderCallbacks<List<StoriesEntity>>() {
             @Override
             public Loader<List<StoriesEntity>> onCreateLoader(int id, Bundle args) {
@@ -69,7 +63,6 @@ public class FavoriteFragment extends Fragment {
                 recyclerView.setAdapter(new FavoriteAdapter(data));//через адаптер подгрузили данные во фрагмент
 
             }
-
 
             @Override
             public void onLoaderReset(Loader<List<StoriesEntity>> loader) {

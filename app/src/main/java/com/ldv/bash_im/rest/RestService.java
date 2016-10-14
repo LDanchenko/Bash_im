@@ -11,7 +11,6 @@ import java.util.List;
 
 public final class RestService {
 
-    //константа
     private RestClient restClient;//инстанс класса, который отвечает за домен,там где все связано
 
     public RestService(){
