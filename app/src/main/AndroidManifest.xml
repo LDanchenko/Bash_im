@@ -11,7 +11,7 @@
         android:label="Bash.im"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:name="com.orm.SugarApp"
+        android:name="com.ldv.bash_im.ui.Bash_imApplication"
         >
 
         <meta-data android:name="DATABASE" android:value="bash_im.db" />

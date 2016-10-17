@@ -3,6 +3,7 @@ package com.ldv.bash_im.ui;
 import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.ldv.bash_im.MainActivity_;
@@ -16,6 +17,7 @@ import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.NonConfigurationInstance;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @EActivity(R.layout.splash_activity)
@@ -48,14 +50,15 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     public void updateDB(List<StoriesModel> storiesEntities){
-        if (StoriesEntity.selectAll().isEmpty()){
+        if (StoriesEntity.selectAll().isEmpty()) {
             for (StoriesModel stories : storiesEntities) {
                 StoriesEntity story = new StoriesEntity(stories.getName(), stories.getSite(),
                         stories.getDesc(), stories.getLink(), stories.getElementPureHtml(), false);
                 story.save();
             }
         }
-    }
+        }
+
 
 
     void checkInternet(){

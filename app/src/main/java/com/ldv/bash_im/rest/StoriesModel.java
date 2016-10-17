@@ -2,11 +2,14 @@ package com.ldv.bash_im.rest;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 /**
  * Created by user on 17.10.2016.
  */
 
 public class StoriesModel {
+
 
     @SerializedName("site")
     public String site;
@@ -62,5 +65,6 @@ public class StoriesModel {
     public void setElementPureHtml(String elementPureHtml){
         this.elementPureHtml=elementPureHtml;
     }
+
 
 }

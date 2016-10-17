@@ -1,26 +1,40 @@
 package com.ldv.bash_im.ui.entities;
 
 
-import com.google.gson.annotations.SerializedName;
-import com.orm.SugarRecord;
-import com.orm.dsl.Column;
-import com.orm.query.Select;
+import com.ldv.bash_im.ui.StoriesDatabase;
+import com.raizlabs.android.dbflow.annotation.Column;
+import com.raizlabs.android.dbflow.annotation.PrimaryKey;
+import com.raizlabs.android.dbflow.annotation.Table;
+import com.raizlabs.android.dbflow.sql.language.SQLite;
+import com.raizlabs.android.dbflow.sql.language.Select;
+import com.raizlabs.android.dbflow.structure.BaseModel;
+
 
 import java.util.List;
+@Table(database = StoriesDatabase.class)
+public class StoriesEntity  extends BaseModel{
 
-public class StoriesEntity extends SugarRecord {
+    
+    @PrimaryKey (autoincrement = true)
+    int id;
 
-
+    @Column
     public String site;
 
+    @Column
     public String name;
 
+    @Column
     public String desc;
 
+    @Column
     public String link;
 
+    @Column
     public String elementPureHtml;
 
+
+    @Column
     public boolean favorite;
 
     public String getName(){
@@ -85,13 +99,16 @@ public class StoriesEntity extends SugarRecord {
 
 
     public static  List<StoriesEntity> selectAll(){
-        List<StoriesEntity> allStories = StoriesEntity.listAll(StoriesEntity.class);
+        List<StoriesEntity> allStories =  new Select().from(StoriesEntity.class).queryList();
+
         return allStories;
     }
 
-    public static  List<StoriesEntity> selectFavorite(){
+    public static   List<StoriesEntity> selectFavorite(){
 
-        List<StoriesEntity> allStories = StoriesEntity.find(StoriesEntity.class, "favorite = ?", "1");
+        List<StoriesEntity> allStories = SQLite.select()
+                .from(StoriesEntity.class)
+                .where(StoriesEntity_Table.favorite.eq(true)).queryList();
         return allStories;
     }
 }

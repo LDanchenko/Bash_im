@@ -51,7 +51,7 @@ public class FavoriteFragment extends Fragment {
                 final AsyncTaskLoader<List<StoriesEntity>> loader = new AsyncTaskLoader<List<StoriesEntity>>(getActivity()) {
                     @Override
                     public List<StoriesEntity> loadInBackground() {
-                        return StoriesEntity.selectFavorite();
+                       return StoriesEntity.selectFavorite();
                     }
                 };
                 loader.forceLoad();
