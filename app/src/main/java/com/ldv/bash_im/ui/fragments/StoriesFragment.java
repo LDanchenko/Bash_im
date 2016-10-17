@@ -36,7 +36,7 @@ import retrofit2.Response;
 public class StoriesFragment extends Fragment {
 
     private RecyclerView recyclerView;
-
+    private StoriesAdapter storiesAdapter;
         private static final String LOG_TAG = "StoriesFragment";
 
     @Nullable
@@ -46,6 +46,8 @@ public class StoriesFragment extends Fragment {
         recyclerView = (RecyclerView) rootView.findViewById(R.id.list_of_stories);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         Log.d(LOG_TAG, "onCreateView");
+        storiesAdapter = new StoriesAdapter(getActivity());
+        recyclerView.setAdapter(storiesAdapter);
         return rootView;
     }
 
@@ -72,8 +74,9 @@ public class StoriesFragment extends Fragment {
 
             @Override
             public void onLoadFinished(Loader<List<StoriesEntity>> loader, List<StoriesEntity> data) {
-                recyclerView.setAdapter(new StoriesAdapter(data));//через адаптер подгрузили данные во фрагмент
-
+                //recyclerView.setAdapter(new StoriesAdapter(data));//через адаптер подгрузили данные во фрагмент
+                storiesAdapter.setStoriesList(data); //Передаёте новый список в котором обновились данные (допустим, один из айтемов стал избранным)
+                storiesAdapter.notifyDataSetChanged();
             }
 
             @Override

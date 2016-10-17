@@ -22,14 +22,13 @@
 
             />
 
-        <ImageButton
-            android:layout_marginTop="40sp"
+        <ImageView
+            android:layout_marginTop="40dp"
             android:id="@+id/favorite"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
             android:layout_below="@+id/stories_item_name"
             android:background="#00ffffff"
-            android:src="@drawable/button_normal"
             />
 
     </RelativeLayout>

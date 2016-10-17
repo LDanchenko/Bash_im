@@ -33,7 +33,7 @@ public class BackgroundTask {
         @Background
         public void setStories(){
                 RestService restService = new RestService();
-                Call<List<StoriesModel>> storiesModel = restService.get_story("bash.im", "bash", 3);
+                Call<List<StoriesModel>> storiesModel = restService.get_story("bash.im", "bash", 20);
                 storiesModel.enqueue(new Callback<List<StoriesModel>>() {
         @Override
         public void onResponse(Call<List<StoriesModel>> call, Response<List<StoriesModel>> response) {
