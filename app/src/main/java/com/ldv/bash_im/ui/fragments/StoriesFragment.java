@@ -77,8 +77,8 @@ public class StoriesFragment extends Fragment {
                 //recyclerView.setAdapter(new StoriesAdapter(data));//через адаптер подгрузили данные во фрагмент
                 storiesAdapter.setStoriesList(data); //Передаёте новый список в котором обновились данные (допустим, один из айтемов стал избранным)
                 storiesAdapter.notifyDataSetChanged();
-            }
 
+            }
             @Override
             public void onLoaderReset(Loader<List<StoriesEntity>> loader) {
 

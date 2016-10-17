@@ -56,8 +56,8 @@ public class StoriesAdapter extends RecyclerView.Adapter<StoriesAdapter.StoriesH
     }
 
     @Override
-    public void onBindViewHolder(StoriesHolder holder, int position) {
-        StoriesEntity stories = storiesList.get(position); //применили метод гет, получили данные из таблицы с такой то позиции
+    public void onBindViewHolder(final StoriesHolder holder, final int position) {
+        final StoriesEntity stories = storiesList.get(position); //применили метод гет, получили данные из таблицы с такой то позиции
         holder.stories_name.setText(Html.fromHtml(stories.getElementPureHtml()));
         if (stories.getFavorite()==true){
             Glide
@@ -76,11 +76,35 @@ public class StoriesAdapter extends RecyclerView.Adapter<StoriesAdapter.StoriesH
                     .diskCacheStrategy(DiskCacheStrategy.SOURCE) //сохранить оригинал изображеня в кєш
                     .into(holder.favorite);
         }
+        holder.favorite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                StoriesEntity storiesEntity = storiesList.get(position);
 
+                if (storiesEntity.getFavorite()==false){
+                    storiesEntity.setFavorite(true);
+                    Glide
+                            .with(context)
+                            .load(R.drawable.button_pressed)
+                            .diskCacheStrategy(DiskCacheStrategy.SOURCE) //сохранить оригинал изображеня в кєш
+                            .into(holder.favorite);
+
+                }
+                else {
+                    storiesEntity.setFavorite(false);
+                   Glide
+                            .with(context)
+                            .load(R.drawable.button_normal)
+                            .diskCacheStrategy(DiskCacheStrategy.SOURCE) //сохранить оригинал изображеня в кєш
+                            .into(holder.favorite);
+                }
+                storiesEntity.save();
+            }
+        });
     }
 
 
-    public class StoriesHolder extends RecyclerView.ViewHolder implements View.OnClickListener {//тут ищем  текст вью для вывода категори
+    public class StoriesHolder extends RecyclerView.ViewHolder {
 
         TextView stories_name;
         ImageView favorite;
@@ -89,40 +113,9 @@ public class StoriesAdapter extends RecyclerView.Adapter<StoriesAdapter.StoriesH
             super(itemView);
             stories_name = (TextView) itemView.findViewById(R.id.stories_item_name);//нашли поле в текст вью
             favorite = (ImageView) itemView.findViewById(R.id.favorite);
-
-            favorite.setOnClickListener(this);
-        }
-            @Override
-            public void onClick (View v){
-
-                StoriesEntity storiesEntity = StoriesEntity.findById(StoriesEntity.class,
-                        getItemById(getAdapterPosition()).getId());
-
-                if (storiesEntity.getFavorite()==false){
-                    storiesEntity.setFavorite(true);
-                  //  favorite.setImageResource(R.drawable.button_pressed);
-                    Glide
-                            .with(context)
-                            .load(R.drawable.button_pressed)
-                            // .crossFade()//от прозрачного к видному -анимация
-                            .diskCacheStrategy(DiskCacheStrategy.SOURCE) //сохранить оригинал изображеня в кєш
-                            .into(favorite);
-                }
-                else {
-                    storiesEntity.setFavorite(false);
-                  //  favorite.setImageResource(R.drawable.button_normal);
-                    Glide
-                            .with(context)
-                            .load(R.drawable.button_normal)
-                            // .crossFade()//от прозрачного к видному -анимация
-                            .diskCacheStrategy(DiskCacheStrategy.SOURCE) //сохранить оригинал изображеня в кєш
-                            .into(favorite);
-                }
-                storiesEntity.save();
             }
-
-            }
-        }
+    }
+}
 
 
 
