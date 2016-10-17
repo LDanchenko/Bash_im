@@ -66,7 +66,7 @@ public class SplashActivity extends AppCompatActivity {
               StoriesEntity tr = StoriesEntity.selectBylink(link);
 
 
-              try {
+              try { //если нашли с такой ссылкой обьект в базе, просто переписываем ему все кроме favorite
                     tr.setName(stories.getName());
                     tr.setSite(stories.getSite());
                     tr.setDesc(stories.getDesc());
@@ -74,7 +74,7 @@ public class SplashActivity extends AppCompatActivity {
                     tr.setElementPureHtml(stories.getElementPureHtml());
                     tr.save();
                 }
-              catch (NullPointerException e){
+              catch (NullPointerException e){ //если такого обьекта нет, создаем новый
                   StoriesEntity storiesEntity = new StoriesEntity(stories.getName(), stories.getSite(),
                           stories.getDesc(), stories.getLink(), stories.getElementPureHtml(), false);
                   storiesEntity.save(); }
