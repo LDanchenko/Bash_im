@@ -46,7 +46,7 @@ public class StoriesFragment extends Fragment {
         recyclerView = (RecyclerView) rootView.findViewById(R.id.list_of_stories);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         Log.d(LOG_TAG, "onCreateView");
-        storiesAdapter = new StoriesAdapter(getActivity());
+        storiesAdapter = new StoriesAdapter(getActivity()); //повесили адаптер,он с констекстом, для глайда
         recyclerView.setAdapter(storiesAdapter);
         return rootView;
     }
@@ -76,7 +76,7 @@ public class StoriesFragment extends Fragment {
             public void onLoadFinished(Loader<List<StoriesEntity>> loader, List<StoriesEntity> data) {
                 //recyclerView.setAdapter(new StoriesAdapter(data));//через адаптер подгрузили данные во фрагмент
                 storiesAdapter.setStoriesList(data); //Передаёте новый список в котором обновились данные (допустим, один из айтемов стал избранным)
-                storiesAdapter.notifyDataSetChanged();
+                storiesAdapter.notifyDataSetChanged();//сообщаете адаптеру, что датасэт поменялся и он должен перегрузить список
 
             }
             @Override

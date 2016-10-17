@@ -24,7 +24,7 @@ public class StoriesAdapter extends RecyclerView.Adapter<StoriesAdapter.StoriesH
 
     public StoriesAdapter(Context context) {//конструктор //РАЗБЕРИСЬ
         this.context = context;
-        storiesList = new ArrayList<>();
+        storiesList = new ArrayList<>();//создали пустой список
    // storiesList =this.storiesList;
     }
 
@@ -77,6 +77,7 @@ public class StoriesAdapter extends RecyclerView.Adapter<StoriesAdapter.StoriesH
                     .into(holder.favorite);
         }
         holder.favorite.setOnClickListener(new View.OnClickListener() { //тут вешаю лисенер на кнопку чтоб при прокрутке списка не удалялись изменения на карточке
+           //если нажата кнопка меняем цвет звездочки и добавляем в избранное, и наоборот
             @Override
             public void onClick(View v) {
                 StoriesEntity storiesEntity = storiesList.get(position);

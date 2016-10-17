@@ -21,6 +21,10 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.ldv.bash_im.ui.ConstantsManager.NAME;
+import static com.ldv.bash_im.ui.ConstantsManager.NUM;
+import static com.ldv.bash_im.ui.ConstantsManager.SITE;
+
 
 @EBean
 public class BackgroundTask {
@@ -33,7 +37,7 @@ public class BackgroundTask {
         @Background
         public void setStories(){
                 RestService restService = new RestService();
-                Call<List<StoriesModel>> storiesModel = restService.get_story("bash.im", "bash", 20);
+                Call<List<StoriesModel>> storiesModel = restService.get_story(SITE, NAME, NUM);
                 storiesModel.enqueue(new Callback<List<StoriesModel>>() {
         @Override
         public void onResponse(Call<List<StoriesModel>> call, Response<List<StoriesModel>> response) {

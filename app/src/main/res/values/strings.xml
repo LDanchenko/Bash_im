@@ -9,6 +9,6 @@
     <string name="nav_drawer_exit">Выход</string>
     <string name="unknown_error">Unknown error!</string>
     <string name="no_internet">No internet!</string>
-    <string name="bash_im">BASH_IM</string>
-    <string name="bash_im_mobile_client">Bash_im mobile client</string>
+    <string name="bash_im">BASH.IM</string>
+    <string name="bash_im_mobile_client">Bash.im mobile client</string>
 </resources>
