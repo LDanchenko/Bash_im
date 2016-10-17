@@ -76,7 +76,7 @@ public class StoriesAdapter extends RecyclerView.Adapter<StoriesAdapter.StoriesH
                     .diskCacheStrategy(DiskCacheStrategy.SOURCE) //сохранить оригинал изображеня в кєш
                     .into(holder.favorite);
         }
-        holder.favorite.setOnClickListener(new View.OnClickListener() {
+        holder.favorite.setOnClickListener(new View.OnClickListener() { //тут вешаю лисенер на кнопку чтоб при прокрутке списка не удалялись изменения на карточке
             @Override
             public void onClick(View v) {
                 StoriesEntity storiesEntity = storiesList.get(position);
