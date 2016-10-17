@@ -37,6 +37,8 @@ public class StoriesEntity  extends BaseModel{
     @Column
     public boolean favorite;
 
+
+
     public String getName(){
         return name;
     }
@@ -111,5 +113,14 @@ public class StoriesEntity  extends BaseModel{
                 .where(StoriesEntity_Table.favorite.eq(true)).queryList();
         return allStories;
     }
+
+    public static  StoriesEntity selectBylink(String link){
+
+        StoriesEntity story = SQLite.select()
+                .from(StoriesEntity.class)
+                .where(StoriesEntity_Table.link.eq(link)).querySingle();
+        return story;
+    }
+
 }
 

@@ -38,14 +38,13 @@ public class BackgroundTask {
         public void setStories(){
                 RestService restService = new RestService();
                 Call<List<StoriesModel>> storiesModel = restService.get_story(SITE, NAME, NUM);
-                storiesModel.enqueue(new Callback<List<StoriesModel>>() {
+                    storiesModel.enqueue(new Callback<List<StoriesModel>>() {
         @Override
         public void onResponse(Call<List<StoriesModel>> call, Response<List<StoriesModel>> response) {
             if(response.isSuccessful()) {
 
                 List<StoriesModel> storiesEntities = response.body();
-
-               updateRegistrationUI(storiesEntities);
+                updateRegistrationUI(storiesEntities);
 
             }}
 

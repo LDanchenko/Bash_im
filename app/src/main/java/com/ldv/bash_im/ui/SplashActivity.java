@@ -12,13 +12,14 @@ import com.ldv.bash_im.rest.NetworkStatusChecker;
 import com.ldv.bash_im.rest.StoriesModel;
 import com.ldv.bash_im.ui.entities.StoriesEntity;
 
+
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.NonConfigurationInstance;
 
-import java.util.ArrayList;
 import java.util.List;
+
 
 @EActivity(R.layout.splash_activity)
 public class SplashActivity extends AppCompatActivity {
@@ -49,15 +50,42 @@ public class SplashActivity extends AppCompatActivity {
         Toast.makeText(getApplicationContext(), R.string.unknown_error, Toast.LENGTH_SHORT).show();
     }
 
-    public void updateDB(List<StoriesModel> storiesEntities){
-        if (StoriesEntity.selectAll().isEmpty()) {
-            for (StoriesModel stories : storiesEntities) {
-                StoriesEntity story = new StoriesEntity(stories.getName(), stories.getSite(),
-                        stories.getDesc(), stories.getLink(), stories.getElementPureHtml(), false);
-                story.save();
-            }
-        }
-        }
+
+   public void updateDB(List<StoriesModel> storiesEntities) {
+
+      if (StoriesEntity.selectAll().isEmpty()){
+           for (StoriesModel stories : storiesEntities){
+               StoriesEntity story = new StoriesEntity(stories.getName(), stories.getSite(),
+                       stories.getDesc(), stories.getLink(), stories.getElementPureHtml(), false);
+               story.save();
+           }
+       }
+       else if (StoriesEntity.selectAll().size()!=0) {
+          for (StoriesModel stories : storiesEntities) {
+              String link = stories.getLink();
+              StoriesEntity tr = StoriesEntity.selectBylink(link);
+
+
+              try {
+                    tr.setName(stories.getName());
+                    tr.setSite(stories.getSite());
+                    tr.setDesc(stories.getDesc());
+                    tr.setLink(stories.getLink());
+                    tr.setElementPureHtml(stories.getElementPureHtml());
+                    tr.save();
+                }
+              catch (NullPointerException e){
+                  StoriesEntity storiesEntity = new StoriesEntity(stories.getName(), stories.getSite(),
+                          stories.getDesc(), stories.getLink(), stories.getElementPureHtml(), false);
+                  storiesEntity.save(); }
+              }
+
+      }
+   }
+
+
+
+
 
 
 
