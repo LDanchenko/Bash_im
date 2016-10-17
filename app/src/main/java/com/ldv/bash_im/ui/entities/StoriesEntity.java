@@ -11,19 +11,14 @@ import java.util.List;
 public class StoriesEntity extends SugarRecord {
 
 
-  @SerializedName("site")
     public String site;
 
-    @SerializedName("name")
     public String name;
 
-    @SerializedName("desc")
     public String desc;
 
-    @SerializedName("link")
     public String link;
 
-    @SerializedName("elementPureHtml")
     public String elementPureHtml;
 
     public boolean favorite;

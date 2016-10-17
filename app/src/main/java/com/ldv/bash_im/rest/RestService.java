@@ -18,7 +18,7 @@ public final class RestService {
     }
 
     //запрос на регистрацию
-    public retrofit2.Call<List<StoriesEntity>> get_story (@NonNull String site, //создаем инстанс нашей модели для запроса, третий параметр вынесли в константу
+    public retrofit2.Call<List<StoriesModel>> get_story (@NonNull String site, //создаем инстанс нашей модели для запроса, третий параметр вынесли в константу
                                                           @NonNull String name,
                                                           @NonNull int num) { //IOEXception - чтоб не было трай кеч
         return restClient.getUmoriliApi() //рест клиент - класс где связали запрос,апи и ретрофит.

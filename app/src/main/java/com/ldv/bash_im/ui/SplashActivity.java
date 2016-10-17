@@ -8,6 +8,7 @@ import android.widget.Toast;
 import com.ldv.bash_im.MainActivity_;
 import com.ldv.bash_im.R;
 import com.ldv.bash_im.rest.NetworkStatusChecker;
+import com.ldv.bash_im.rest.StoriesModel;
 import com.ldv.bash_im.ui.entities.StoriesEntity;
 
 import org.androidannotations.annotations.AfterViews;
@@ -46,9 +47,9 @@ public class SplashActivity extends AppCompatActivity {
         Toast.makeText(getApplicationContext(), R.string.unknown_error, Toast.LENGTH_SHORT).show();
     }
 
-    public void updateDB(List<StoriesEntity> storiesEntities){
+    public void updateDB(List<StoriesModel> storiesEntities){
         if (StoriesEntity.selectAll().isEmpty()){
-            for (StoriesEntity stories : storiesEntities) {
+            for (StoriesModel stories : storiesEntities) {
                 StoriesEntity story = new StoriesEntity(stories.getName(), stories.getSite(),
                         stories.getDesc(), stories.getLink(), stories.getElementPureHtml(), false);
                 story.save();

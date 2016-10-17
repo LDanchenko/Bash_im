@@ -15,7 +15,7 @@ public interface UmoroliApi {
 
     @GET ("get")
 
-    Call<List<StoriesEntity>> get_stories (@Query("site") String site,
+    Call<List<StoriesModel>> get_stories (@Query("site") String site,
                                      @Query("name") String name,
                                      @Query("num") int num);
 }
