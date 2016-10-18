@@ -2,10 +2,12 @@ package com.ldv.bash_im.rest;
 
 import android.support.annotation.NonNull;
 
+import org.androidannotations.annotations.EBean;
+
 import java.util.List;
 
-
-public final class RestService {
+@EBean
+public class RestService {
 
     private RestClient restClient;//инстанс класса, который отвечает за домен,там где все связано
 

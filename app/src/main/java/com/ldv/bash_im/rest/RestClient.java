@@ -1,10 +1,12 @@
 package com.ldv.bash_im.rest;
 
+import org.androidannotations.annotations.EBean;
+
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-
+@EBean
 public class RestClient {
 
     public static final String BASE_URL = "http://www.umori.li/api/"; //доменное имя сервера

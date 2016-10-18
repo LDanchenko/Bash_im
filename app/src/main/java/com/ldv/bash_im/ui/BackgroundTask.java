@@ -53,7 +53,6 @@ public class BackgroundTask {
             if(response.isSuccessful()) {
 
                 final List<StoriesModel> storiesEntities = response.body();
-                //task.loadQuotes(storiesEntities);
                 FlowManager.getDatabase(StoriesDatabase.class).executeTransaction(new ITransaction() {
                     @Override
                     public void execute(DatabaseWrapper databaseWrapper) {
