@@ -55,7 +55,7 @@ public class SplashActivity extends AppCompatActivity {
     }
 
 
-   public void updateDB(final List<StoriesModel> storiesEntities) {
+ /*  public void updateDB(final List<StoriesModel> storiesEntities) {
        FlowManager.getDatabase(StoriesDatabase.class).executeTransaction(new ITransaction() {
            @Override
            public void execute(DatabaseWrapper databaseWrapper) {
@@ -73,7 +73,7 @@ public class SplashActivity extends AppCompatActivity {
                }
            }
        });
-   }
+   }*/
 
 
 
