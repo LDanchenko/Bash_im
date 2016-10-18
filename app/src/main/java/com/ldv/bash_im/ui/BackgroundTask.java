@@ -35,7 +35,7 @@ import static com.ldv.bash_im.ui.ConstantsManager.SITE;
 
 @EBean
 public class BackgroundTask {
-
+    @Bean
     DataManager task;
 
 
@@ -53,18 +53,7 @@ public class BackgroundTask {
             if(response.isSuccessful()) {
 
                 final List<StoriesModel> storiesEntities = response.body();
-                FlowManager.getDatabase(StoriesDatabase.class).executeTransaction(new ITransaction() {
-                    @Override
-                    public void execute(DatabaseWrapper databaseWrapper) {
-                        for (StoriesModel quote : storiesEntities) {
-                            StoriesEntity quoteEntity = new StoriesEntity();
-                            quoteEntity.setId(quote.getLink());
-                            quoteEntity.setElementPureHtml(quote.getElementPureHtml());
-                            quoteEntity.setFavorite(false);
-                            quoteEntity.save(databaseWrapper);
-                        }
-                    }
-                });
+                task.loadQuotes(storiesEntities);
 
             }}
 
