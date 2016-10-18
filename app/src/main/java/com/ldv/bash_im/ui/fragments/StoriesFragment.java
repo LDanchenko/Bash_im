@@ -1,6 +1,5 @@
 package com.ldv.bash_im.ui.fragments;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -13,24 +12,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.Toast;
 
 import com.ldv.bash_im.R;
-import com.ldv.bash_im.rest.NetworkStatusChecker;
-import com.ldv.bash_im.rest.RestService;
 import com.ldv.bash_im.ui.adapters.StoriesAdapter;
-import com.ldv.bash_im.ui.entities.StoriesEntity;
+import com.ldv.bash_im.ui.database.entities.StoriesEntity;
 
-import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.EFragment;
-import org.androidannotations.annotations.ViewById;
 
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 @EFragment
 public class StoriesFragment extends Fragment {

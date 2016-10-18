@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.ldv.bash_im.R;
-import com.ldv.bash_im.ui.entities.StoriesEntity;
+import com.ldv.bash_im.ui.database.entities.StoriesEntity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +25,6 @@ public class StoriesAdapter extends RecyclerView.Adapter<StoriesAdapter.StoriesH
     public StoriesAdapter(Context context) {//конструктор //РАЗБЕРИСЬ
         this.context = context;
         storiesList = new ArrayList<>();//создали пустой список
-   // storiesList =this.storiesList;
     }
 
 
@@ -58,8 +57,8 @@ public class StoriesAdapter extends RecyclerView.Adapter<StoriesAdapter.StoriesH
     @Override
     public void onBindViewHolder(final StoriesHolder holder, final int position) {
         final StoriesEntity stories = storiesList.get(position); //применили метод гет, получили данные из таблицы с такой то позиции
-        holder.stories_name.setText(Html.fromHtml(stories.getElementPureHtml()));
-        if (stories.getFavorite()==true){
+        holder.storiesName.setText(Html.fromHtml(stories.getElementPureHtml()));
+        if (stories.isFavorite()) {
             Glide
                     .with(context)
                     .load(R.drawable.button_pressed)
@@ -68,7 +67,7 @@ public class StoriesAdapter extends RecyclerView.Adapter<StoriesAdapter.StoriesH
                     .into(holder.favorite);
             //holder.favorite.setImageResource(R.drawable.button_pressed);
         }
-      else  if (stories.getFavorite()==false){
+      else {
             Glide
                     .with(context)
                     .load(R.drawable.button_normal)
@@ -82,20 +81,20 @@ public class StoriesAdapter extends RecyclerView.Adapter<StoriesAdapter.StoriesH
             public void onClick(View v) {
                 StoriesEntity storiesEntity = storiesList.get(position);
 
-                if (storiesEntity.getFavorite()==false){
-                    storiesEntity.setFavorite(true);
+                if (storiesEntity.isFavorite()){
+                    storiesEntity.setFavorite(false);
                     Glide
                             .with(context)
-                            .load(R.drawable.button_pressed)
+                            .load(R.drawable.button_normal)
                             .diskCacheStrategy(DiskCacheStrategy.SOURCE) //сохранить оригинал изображеня в кєш
                             .into(holder.favorite);
 
                 }
                 else {
-                    storiesEntity.setFavorite(false);
+                    storiesEntity.setFavorite(true);
                    Glide
                             .with(context)
-                            .load(R.drawable.button_normal)
+                            .load(R.drawable.button_pressed)
                             .diskCacheStrategy(DiskCacheStrategy.SOURCE) //сохранить оригинал изображеня в кєш
                             .into(holder.favorite);
                 }
@@ -107,20 +106,15 @@ public class StoriesAdapter extends RecyclerView.Adapter<StoriesAdapter.StoriesH
 
     public class StoriesHolder extends RecyclerView.ViewHolder {
 
-        TextView stories_name;
+        TextView storiesName;
         ImageView favorite;
 
         public StoriesHolder(View itemView) {//konstruktor
             super(itemView);
-            stories_name = (TextView) itemView.findViewById(R.id.stories_item_name);//нашли поле в текст вью
+            storiesName = (TextView) itemView.findViewById(R.id.stories_item_name);//нашли поле в текст вью
             favorite = (ImageView) itemView.findViewById(R.id.favorite);
             }
     }
 }
-
-
-
-
-
 
 

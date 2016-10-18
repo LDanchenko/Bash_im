@@ -15,11 +15,10 @@ import android.view.ViewGroup;
 
 import com.ldv.bash_im.R;
 import com.ldv.bash_im.ui.adapters.FavoriteAdapter;
-import com.ldv.bash_im.ui.entities.StoriesEntity;
+import com.ldv.bash_im.ui.database.entities.StoriesEntity;
 
 import org.androidannotations.annotations.EFragment;
 
-import java.util.ArrayList;
 import java.util.List;
 @EFragment
 public class FavoriteFragment extends Fragment {

@@ -1,4 +1,4 @@
-package com.ldv.bash_im.ui;
+package com.ldv.bash_im.ui.database;
 
 import com.raizlabs.android.dbflow.annotation.Database;
 

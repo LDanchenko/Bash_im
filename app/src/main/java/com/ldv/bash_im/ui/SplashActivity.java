@@ -3,14 +3,14 @@ package com.ldv.bash_im.ui;
 import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.ldv.bash_im.MainActivity_;
 import com.ldv.bash_im.R;
 import com.ldv.bash_im.rest.NetworkStatusChecker;
 import com.ldv.bash_im.rest.StoriesModel;
-import com.ldv.bash_im.ui.entities.StoriesEntity;
+import com.ldv.bash_im.ui.database.StoriesDatabase;
+import com.ldv.bash_im.ui.database.entities.StoriesEntity;
 import com.raizlabs.android.dbflow.config.FlowManager;
 import com.raizlabs.android.dbflow.structure.database.DatabaseWrapper;
 import com.raizlabs.android.dbflow.structure.database.transaction.ITransaction;
@@ -38,6 +38,7 @@ public class SplashActivity extends AppCompatActivity {
     void ready() {
 
        checkInternet();
+
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -60,28 +61,13 @@ public class SplashActivity extends AppCompatActivity {
            public void execute(DatabaseWrapper databaseWrapper) {
                if (StoriesEntity.selectAll().isEmpty()) {
                    for (StoriesModel stories : storiesEntities) {
-                       StoriesEntity story = new StoriesEntity(stories.getName(), stories.getSite(),
-                               stories.getDesc(), stories.getLink(), stories.getElementPureHtml(), false);
+                       StoriesEntity story = new StoriesEntity(stories.getLink(), stories.getElementPureHtml(), false);
                        story.save();
                    }
                } else if (StoriesEntity.selectAll().size() != 0) {
                    for (StoriesModel stories : storiesEntities) {
-                       String link = stories.getLink();
-                       StoriesEntity tr = StoriesEntity.selectBylink(link);
-
-
-                       try { //если нашли с такой ссылкой обьект в базе, просто переписываем ему все кроме favorite
-                           tr.setName(stories.getName());
-                           tr.setSite(stories.getSite());
-                           tr.setDesc(stories.getDesc());
-                           tr.setLink(stories.getLink());
-                           tr.setElementPureHtml(stories.getElementPureHtml());
-                           tr.save();
-                       } catch (NullPointerException e) { //если такого обьекта нет, создаем новый
-                           StoriesEntity storiesEntity = new StoriesEntity(stories.getName(), stories.getSite(),
-                                   stories.getDesc(), stories.getLink(), stories.getElementPureHtml(), false);
-                           storiesEntity.save();
-                       }
+                       StoriesEntity storiesEntity = new StoriesEntity(stories.getLink(), stories.getElementPureHtml(), false);
+                       storiesEntity.save();
                    }
 
                }

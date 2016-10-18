@@ -9,7 +9,7 @@ import com.raizlabs.android.dbflow.config.FlowManager;
  * Created by user on 17.10.2016.
  */
 
-public class Bash_imApplication extends Application {
+public class BashimApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();

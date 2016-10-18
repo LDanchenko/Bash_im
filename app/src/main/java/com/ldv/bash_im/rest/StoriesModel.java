@@ -2,29 +2,23 @@ package com.ldv.bash_im.rest;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
-
-/**
- * Created by user on 17.10.2016.
- */
-
 public class StoriesModel {
 
 
     @SerializedName("site")
-    public String site;
+    private String site;
 
     @SerializedName("name")
     public String name;
 
     @SerializedName("desc")
-    public String desc;
+    private String desc;
 
     @SerializedName("link")
-    public String link;
+    private String link;
 
     @SerializedName("elementPureHtml")
-    public String elementPureHtml;
+    private String elementPureHtml;
 
     public String getSite(){
         return site;

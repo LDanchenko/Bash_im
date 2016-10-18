@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.ldv.bash_im.R;
-import com.ldv.bash_im.ui.entities.StoriesEntity;
+import com.ldv.bash_im.ui.database.entities.StoriesEntity;
 
 
 import java.util.List;
@@ -34,7 +34,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Favori
     @Override
     public void onBindViewHolder(FavoriteHolder holder, int position) {
         StoriesEntity favorite = favoriteList.get(position); //применили метод гет, получили данные из таблицы с такой то позиции
-       holder.favorite_name.setText(Html.fromHtml(favorite.getElementPureHtml()));
+       holder.favoriteName.setText(Html.fromHtml(favorite.getElementPureHtml()));
             }
 
     @Override
@@ -44,11 +44,11 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Favori
 
     public class FavoriteHolder extends RecyclerView.ViewHolder {//тут ищем  текст вью для вывода категори
 
-        TextView favorite_name;
+        TextView favoriteName;
 
         public FavoriteHolder(final View itemView) {//konstruktor
             super(itemView);
-            favorite_name = (TextView) itemView.findViewById(R.id.favorite_item_name);//нашли поле в текст вью
+            favoriteName = (TextView) itemView.findViewById(R.id.favorite_item_name);//нашли поле в текст вью
         }
     }
 }
