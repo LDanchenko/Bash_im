@@ -10,6 +10,6 @@ public final class ConstantsManager {
 
     public static final String NAME = "bash";
 
-    public static final int NUM = 6;
+    public static final int NUM = 8;
 
 }

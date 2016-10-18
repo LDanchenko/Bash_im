@@ -71,7 +71,7 @@ public class StoriesEntity  extends BaseModel{
                 .where(StoriesEntity_Table.favorite.eq(true)).queryList();
 
     }
-/*
+
     public static StoriesEntity selectByLink(String link){
 
         StoriesEntity story = SQLite.select()
@@ -79,6 +79,6 @@ public class StoriesEntity  extends BaseModel{
                 .where(StoriesEntity_Table.id.eq(link)).querySingle();
         return story;
     }
-*/
+
 }
 

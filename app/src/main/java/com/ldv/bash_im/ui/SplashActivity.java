@@ -55,32 +55,6 @@ public class SplashActivity extends AppCompatActivity {
     }
 
 
- /*  public void updateDB(final List<StoriesModel> storiesEntities) {
-       FlowManager.getDatabase(StoriesDatabase.class).executeTransaction(new ITransaction() {
-           @Override
-           public void execute(DatabaseWrapper databaseWrapper) {
-               if (StoriesEntity.selectAll().isEmpty()) {
-                   for (StoriesModel stories : storiesEntities) {
-                       StoriesEntity story = new StoriesEntity(stories.getLink(), stories.getElementPureHtml(), false);
-                       story.save();
-                   }
-               } else if (StoriesEntity.selectAll().size() != 0) {
-                   for (StoriesModel stories : storiesEntities) {
-                       StoriesEntity storiesEntity = new StoriesEntity(stories.getLink(), stories.getElementPureHtml(), false);
-                       storiesEntity.save();
-                   }
-
-               }
-           }
-       });
-   }*/
-
-
-
-
-
-
-
     void checkInternet(){
         NetworkStatusChecker networkStatusChecker = new NetworkStatusChecker();
         boolean internet = networkStatusChecker.isNetworkAvailable(getApplicationContext());

@@ -7,11 +7,7 @@ package com.ldv.bash_im.ui;
 import com.ldv.bash_im.rest.RestService;
 import com.ldv.bash_im.rest.StoriesModel;
 import com.ldv.bash_im.ui.database.DataManager;
-import com.ldv.bash_im.ui.database.StoriesDatabase;
-import com.ldv.bash_im.ui.database.entities.StoriesEntity;
-import com.raizlabs.android.dbflow.config.FlowManager;
-import com.raizlabs.android.dbflow.structure.database.DatabaseWrapper;
-import com.raizlabs.android.dbflow.structure.database.transaction.ITransaction;
+
 
 
 import org.androidannotations.annotations.Background;
@@ -39,7 +35,6 @@ public class BackgroundTask {
     DataManager task;
 
 
-    private final String LOG_TAG = "Ответ запроса";
     @RootContext
     SplashActivity splashActivity;
 
@@ -54,7 +49,6 @@ public class BackgroundTask {
 
                 final List<StoriesModel> storiesEntities = response.body();
                 task.loadQuotes(storiesEntities);
-
             }}
 
         @Override

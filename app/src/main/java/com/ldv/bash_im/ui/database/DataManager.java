@@ -29,11 +29,21 @@ public class DataManager {
             @Override
             public void execute(DatabaseWrapper databaseWrapper) {
                 for (StoriesModel quote : storiesEntities) {
+                    StoriesEntity story = StoriesEntity.selectByLink(quote.getLink());
+                    if(story.exists()){
                     StoriesEntity quoteEntity = new StoriesEntity();
                     quoteEntity.setId(quote.getLink());
+                        quoteEntity.setFavorite(story.isFavorite());
                     quoteEntity.setElementPureHtml(quote.getElementPureHtml());
-                    quoteEntity.setFavorite(false);
                     quoteEntity.save(databaseWrapper);
+                }
+                else {
+                        StoriesEntity quoteEntity = new StoriesEntity();
+                        quoteEntity.setId(quote.getLink());
+                        quoteEntity.setElementPureHtml(quote.getElementPureHtml());
+                         quoteEntity.setFavorite(false);
+                        quoteEntity.save(databaseWrapper);
+                    }
                 }
             }
         });
